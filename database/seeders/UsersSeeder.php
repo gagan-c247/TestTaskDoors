@@ -41,7 +41,10 @@ class UsersSeeder extends Seeder{
             'hierarchy' => 3,
         ]);
 
-        /*  insert users   */
+        /*  
+        * Insert Admin  
+        */
+       
         $user = Admin::create([ 
             'first_name' => 'admin',
             'email' => 'admin@admin.com',
@@ -55,5 +58,18 @@ class UsersSeeder extends Seeder{
             'menuroles' => 'admin'
         ]);
         $user->assignRole('admin');
+
+
+          /*  insert users   */
+        $user = User::create([ 
+            'first_name' => 'user',
+            'email' => 'user@user.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('123456789'), 
+            'remember_token' => Str::random(10),
+            'password_status' => 1,
+            'menuroles' => 'user'
+        ]);
+        $user->assignRole('user');
     }
 }

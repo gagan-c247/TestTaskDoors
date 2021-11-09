@@ -1,6 +1,6 @@
 <div class="c-sidebar-brand">
     <a href="{{url('/')}}">
-        <img class="c-sidebar-brand-full sidebar-logo" src="{{ url('/assets/brand/logo-white.png') }}" alt="Logo">
+        <img class="c-sidebar-brand-full sidebar-logo" src="{{ url('/assets/brand/logo-white-1.png') }}" style="height:50px; width: 50px;" alt="Logo">
         <img class="c-sidebar-brand-minimized sidebar-favicon" src="{{ url('assets/favicon/favicon.png') }}" alt="Logo">
     </a>
 </div>
@@ -16,28 +16,40 @@
     </li>
     {{-- @can('user-section') --}}
     @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
+    @can('user-section')
         <li class="c-sidebar-nav-dropdown">
             <a class="c-sidebar-nav-dropdown-toggle" href="javascript:;">
                 <i class="cil-user c-sidebar-nav-icon"></i>
-                Business Owner Management
+                User Management
             </a>
             <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link {{ request()->is('/admin/users') ? 'c-active' : '' }}" href="{{url('/admin/users')}}">
-                        <span class="c-sidebar-nav-icon"></span>
-                        Business Owners
-                    </a>
-                </li>
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link {{ request()->is('/admin/users/create') ? 'c-active' : '' }}" href="{{url('/admin/users/create')}}">
-                        <span class="c-sidebar-nav-icon"></span>
-                        Add Business Owner
-                    </a>
-                </li>
+                @can('user-index')
+                    <li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link {{ request()->is('/admin/users') ? 'c-active' : '' }}" href="{{url('/admin/users')}}">
+                            <span class="c-sidebar-nav-icon"></span>
+                            User
+                        </a>
+                    </li>
+                @endcan
+                @can('user-create')
+                    <li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link {{ request()->is('/admin/users/create') ? 'c-active' : '' }}" href="{{url('/admin/users/create')}}">
+                            <span class="c-sidebar-nav-icon"></span>
+                            Add User
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </li>
+    @endcan
     @endif
     {{-- @endcan --}}
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link {{ request()->is('/admin/role') ? 'c-active' : '' }}" href="{{url('/admin/role')}}">
+            <i class="cil-speedometer c-sidebar-nav-icon"></i> Role
+        </a>
+    </li>
     <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
         <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
     </div>

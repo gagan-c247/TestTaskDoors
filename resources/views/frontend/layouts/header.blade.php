@@ -11,7 +11,7 @@
 			</button>
 			@endif
 			<a class="navbar-brand" href="{{ url('/home') }}"> 
-				<img class="logo" src="{{ asset('frontend/assets/images/logo-white.png') }}">
+				<img class="logo" style="height:50px; width: 50px;" src="{{ asset('frontend/assets/images/logo-white-1.png') }}">
 			</a>
 			@if(!auth()->guard('web')->check() && !auth()->guard('admin')->check())
 			<button class="navbar-toggler text-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,12 +45,12 @@
 					<div>
 					<div class="profile-menu">
 						<div class="profile-name d-flex align-items-center">
-							<span class="mr-2 text-capitalize" >{{auth()->guard('admin')->user()->first_name}}</span>
+							<span class="mr-2 text-capitalize" >{{auth()->guard('admin')->user()->name}}</span>
 							<img src="{{asset('frontend/assets/images/user-white.png')}}"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i>
 						</div>
 					</div>
 					<ul class="profile-dropdown mt-2 hide">
-						<li><span class="mr-2 text-capitalize" >{{auth()->guard('admin')->user()->first_name}}</span></li>
+						<li><span class="mr-2 text-capitalize" >{{auth()->guard('admin')->user()->name}}</span></li>
 						<li><a href="{{url('/admin/change-password')}}" class="dropdown-list"><i class="fa fa-lock" aria-hidden="true"></i>Change Password </a></li>
 						<li><a href="{{url('/admin/dashboard')}}" class="dropdown-list"><i class="fa fa-tachometer" aria-hidden="true"></i> Go To Dashboard</a></li>
 						<li><a href="{{url('/admin/logout')}}" class="dropdown-list"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
@@ -62,12 +62,12 @@
 					<div>
 					<div class="profile-menu">
 						<div class="profile-name d-flex align-items-center">
-							<span class="mr-2 text-capitalize" >{{auth()->guard('web')->user()->first_name}}</span>
+							<span class="mr-2 text-capitalize" >{{auth()->guard('web')->user()->name}}</span>
 							<img src="{{asset('frontend/assets/images/user-white.png')}}"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i>
 						</div>
 					</div>
 					<ul class="profile-dropdown mt-2 hide">
-						<li><span class="mr-2 text-capitalize" >{{auth()->guard('web')->user()->first_name}}</span></li>
+						<li><span class="mr-2 text-capitalize" >{{auth()->guard('web')->user()->name}}</span></li>
 						<li><a href="{{url('/change-password')}}" class="dropdown-list"><i class="fa fa-lock" aria-hidden="true"></i>Change Password </a></li>
 						<li><a href="{{url('/profile')}}" class="dropdown-list"><i class="fa fa-user" aria-hidden="true"></i>profile </a></li>
 						<li><a  href="{{url('/dashboard')}}" class="dropdown-list"><i class="fa fa-tachometer" aria-hidden="true"></i> Go To Dashboard</a></li>
@@ -76,22 +76,7 @@
 					</div>
 				</div>
 			@else
-			<!-- <div class="login-right profile-right hide-desktop">
-				<div>
-			    	<div class="profile-menu">
-			    		<img src="{{asset('frontend/assets/images/user-white.png')}}">
-			    		<i class="fa fa-caret-down ml-1" aria-hidden="true"></i>
-			    	</div>
-			    	<ul class="sign-in-up profile-dropdown mt-2 hide">
-						<li>Account</li>
-						<li class="nav-item"><a class="nav-link" href="{{ url('/login') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign In</a></li>
-						<li class="nav-item"><a class="nav-link" href="{{ url('/register') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Up</a></li>
-					</ul>
-				</div>
-		    </div> -->
-			
 			@endif
 	  	</div>
 	</nav>
 </header>
-

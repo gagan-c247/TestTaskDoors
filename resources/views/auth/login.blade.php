@@ -27,28 +27,14 @@
                         <div class="form-group">
                             <label class="label-font-weight">Email Address <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <!-- <div class="input-group-prepend">
-                                    <span class="input-group-text"> -->
-                                        <!-- <svg class="c-icon">
-                                            <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
-                                        </svg> -->
-                                        <i class="fa fa-user c-icon" aria-hidden="true"></i>
-                                    <!-- </span>
-                                </div> -->
+                                <i class="fa fa-user c-icon" aria-hidden="true"></i>
                                 <input class="form-control" type="text" placeholder="" name="email" value="{{ old('email') }}" required autofocus>
                             </div>
                         </div>
                         <div class="form-group mb-2">
                             <label class="label-font-weight">Password <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <!-- <div class="input-group-prepend">
-                                    <span class="input-group-text"> -->
-                                        <!-- <svg class="c-icon">
-                                            <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-lock-locked"></use>
-                                        </svg> -->
-                                        <i class="fa fa-eye c-icon cursor-pointer toggle-password"></i>
-                                    <!-- </span>
-                                </div> -->
+                                <i class="fa fa-eye c-icon cursor-pointer toggle-password"></i>
                                 <input class="form-control" id="password" type="password" placeholder="" name="password" required>
                             </div>
                         </div>

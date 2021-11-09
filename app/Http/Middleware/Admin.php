@@ -17,6 +17,7 @@ class Admin
     {
         // $roles = explode(',', $request->user()->menuroles);
         if ( !auth()->guard('admin')->check() ) {
+            dd('sadasd');
             return abort( 401 );
         }
         return $next($request);

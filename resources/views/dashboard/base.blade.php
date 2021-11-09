@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<!--
-* CoreUI Free Laravel Bootstrap Admin Template
-* @version v2.0.1
-* @link https://coreui.io
-* Copyright (c) 2020 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://coreui.io/license)
--->
-
 <html lang="en">
 <head>
     <base href="./">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-
-    <title>Resin Trader</title>
+    <title>User Management</title>
     
     <link rel="icon" href="{{ asset('assets/favicon/favicon-red.png') }}" type="image/png">
     <!-- Icons-->
@@ -82,9 +70,6 @@
         });
     </script>
     <!-- Show password js end -->
-    
     @yield('javascript')
-
-  
 </body>
 </html>

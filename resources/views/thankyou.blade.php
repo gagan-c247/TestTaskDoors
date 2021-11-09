@@ -89,7 +89,7 @@
             <div class="thankyou-box">
                 <h1>Thank you!</h1>
                 <h4>Registration Successful</h4>
-                <p>Thanks for registering to our marketplace. You will receive an email when your details are approved by the admin</p>
+                <p>Thanks for the Registration </p>
                 <button class="go-home">
                     <a href="{{ route('login') }}" class="color-red">Visit Website</a>
                 </button>

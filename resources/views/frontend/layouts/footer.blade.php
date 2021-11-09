@@ -4,7 +4,7 @@
 			<div class="col-md-4">
 				<div class="footer-items pr-4">
 					<a class="footer-logo" href="{{ url('/home') }}"> 
-						<img class="logo" src="{{ asset('frontend/assets/images/logo-white.png') }}">
+						<img class="logo" style="height:50px; width: 50px;" src="{{ asset('frontend/assets/images/logo-white-1.png') }}">
 					</a>
 					<p class="mt-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
 				</div>
@@ -13,15 +13,14 @@
 				<div class="footer-items">
 					<h6>Quick Links</h6>
 					<ul class="footer-links">
-						
-						@if(isset($aboutStatus) && $aboutStatus == 1)<li><a href="{{ url('/about-us') }}">About Us</a></li>@endif
-						<li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
-						@if(isset($howItWorksStatus) && $howItWorksStatus == 1)<li><a href="{{ url('/how-it-works') }}">How it Works</a></li>@endif
-						<li><a href="{{ url('/faq') }}">FAQ’s</a></li>
-						@if(isset($termOfUseStatus) && $termOfUseStatus == 1)<li><a href="{{ url('/terms-of-use') }}">Terms of Use</a></li>@endif
-						@if(isset($privacyPolicyStatus) && $privacyPolicyStatus == 1)<li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>@endif
-						@if(isset($returnPolicyStatus) && $returnPolicyStatus == 1)<li><a href="{{ url('/return-policy') }}">Return Policy</a></li>@endif
-						@if(isset($shippingPolicyStatus) && $shippingPolicyStatus == 1)<li><a href="{{ url('/shipping-policy') }}">Shipping Policy</a></li>@endif
+						<li><a href="javascript:;">About Us</a></li>
+						<li><a href="javascript:;">Contact Us</a></li>
+						<li><a href="javascript:;">How it Works</a></li>
+						<li><a href="javascript:;">FAQ’s</a></li>
+						<li><a href="javascript:;">Terms of Use</a></li>
+						<li><a href="javascript:;">Privacy Policy</a></li>
+						<li><a href="javascript:;">Return Policy</a></li>
+						<li><a href="javascript:;">Shipping Policy</a></li>
 					</ul>
 				</div>
 			</div>
@@ -37,37 +36,19 @@
 						</div>
 					</div>
 					<ul class="footer-social mt-4">
-						<li><a href=""><i class="fa fa-facebook"></i></a></li>
-						<li><a href=""><i class="fa fa-twitter"></i></a></li>
-						<li><a href=""><i class="fa fa-instagram"></i></a></li>
-						<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
 					</ul>
 				</div>
 			</div>
-			<!-- <div class="col-md-4">
-				<div class="footer-items">
-					<h6>Newsletter</h6>
-					<div class="newsletter">
-						<div class="form-group">
-							<div class="input-group">
-								<i class="fa fa-envelope" aria-hidden="true"></i>
-								<input type="" name="" class="form-control" placeholder="Enter your email address">
-							</div>
-							<button class="btn-medium mt-3">Sign Up</button>
-						</div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 		<div class="copyright">
 			<p class="mb-0 text-center">© Copyright 2021. All Rights Reserved.</p>
 		</div>
 	</div>
 </footer>
-
-
-	
-
 	<script src="{{ asset('frontend/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/popper.min.js') }}"></script>
@@ -112,20 +93,20 @@
 		        hideChat(4);
 		  });
 
-		  $('#chat_fullscreen_loader').click(function(e) {
-		      $('.fullscreen').toggleClass('zmdi-window-maximize');
-		      $('.fullscreen').toggleClass('zmdi-window-restore');
-		      $('.chat').toggleClass('chat_fullscreen');
-		      $('.fab').toggleClass('is-hide');
-		      $('.header_img').toggleClass('change_img');
-		      $('.img_container').toggleClass('change_img');
-		      $('.chat_header').toggleClass('chat_header2');
-		      $('.fab_field').toggleClass('fab_field2');
-		      $('.chat_converse').toggleClass('chat_converse2');
-		      //$('#chat_converse').css('display', 'none');
-		     // $('#chat_body').css('display', 'none');
-		     // $('#chat_form').css('display', 'none');
-		     // $('.chat_login').css('display', 'none');
+		  	$('#chat_fullscreen_loader').click(function(e) {
+			$('.fullscreen').toggleClass('zmdi-window-maximize');
+			$('.fullscreen').toggleClass('zmdi-window-restore');
+			$('.chat').toggleClass('chat_fullscreen');
+			$('.fab').toggleClass('is-hide');
+			$('.header_img').toggleClass('change_img');
+			$('.img_container').toggleClass('change_img');
+			$('.chat_header').toggleClass('chat_header2');
+			$('.fab_field').toggleClass('fab_field2');
+			$('.chat_converse').toggleClass('chat_converse2');
+			//$('#chat_converse').css('display', 'none');
+			// $('#chat_body').css('display', 'none');
+			// $('#chat_form').css('display', 'none');
+			// $('.chat_login').css('display', 'none');
 		     // $('#chat_fullscreen').css('display', 'block');
 		  });
 
@@ -187,7 +168,7 @@
 	      
 	    }
 	    
-		// // slider call
+		// slider call
 
 		$('#slider').slider({
 			range: true,
@@ -200,15 +181,11 @@
 				$('.ui-slider-handle:eq(1) .price-range-max').html('$' + ui.values[ 1 ]);
 				$('.price-range-both').html('<i>$' + ui.values[ 0 ] + ' - </i>$' + ui.values[ 1 ] );
 				
-				//
-				
 		    if ( ui.values[0] == ui.values[1] ) {
 		      $('.price-range-both i').css('display', 'none');
 		    } else {
 		      $('.price-range-both i').css('display', 'inline');
 		    }
-		        
-		        //
 				
 				if (collision($('.price-range-min'), $('.price-range-max')) == true) {
 					$('.price-range-min, .price-range-max').css('opacity', '0');	
@@ -230,7 +207,7 @@
 
     <!-- FAQs accordian js start -->
 	<script>
-  //   	$("#accordionExample").on("hide.bs.collapse show.bs.collapse", e => {
+  		// $("#accordionExample").on("hide.bs.collapse show.bs.collapse", e => {
 		//   $(e.target)
 		//     .prev()
 		//     .find("i:last-child")
@@ -273,7 +250,6 @@
 			open(selectId);
 		});
 
-
 		function open(elem) {
 		    if (document.createEvent) {
 		        var e = document.createEvent("MouseEvents");
@@ -293,17 +269,13 @@
 			
 		});
 
-
 		/* prev view button */
 		$('.prev').on('click', function() {
 			
 			$('#flip-toggle').removeClass('hover');
 			$(this).attr('disabled', true);
 			$('.next').removeAttr('disabled');
-			
 		});
     </script>
-
 </body>
 </html>
-

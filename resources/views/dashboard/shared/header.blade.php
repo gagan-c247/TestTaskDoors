@@ -16,21 +16,48 @@
                     <div class="c-avatar dropdown-profile user-name">
                         <span class="mr-2 text-capitalize">
                             @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
-                                {{auth()->guard('admin')->user()->first_name}}
+                                {{auth()->guard('admin')->user()->name}}
                             @else
-                                {{auth()->guard('web')->user()->first_name ?? 'unknown'}}
+                                {{auth()->guard('web')->user()->name ?? 'unknown'}}
                             @endif
-                        </span> 
-                        <img class="c-avatar-img" src="{{ url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                        </span>
+                        @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
+                            <img class="c-avatar-img" src="{{ url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                        @else
+                            <img class="c-avatar-img" src="{{ auth()->guard('web')->user()->getFirstMediaUrl('image', 'thumb') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                        @endif
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pb-0 pt-0">
-                    
                     <div class="dropdown-header py-2">
                         <strong>Account</strong>
                     </div>
-
                     <ul class="db-header-right">
+                        @if(Auth::guard('admin')->check() && Request::segment(1) == 'admin')
+                        <li>
+                            @if(Request::segment(1) == 'admin')
+                                <a class="dropdown-item" href="{{ url('/admin/change-password') }}">
+                                    <i class="fa fa-lock"></i> Change Password
+                                </a>
+                            @endif
+                        </li>
+                        @elseif(Request::segment(1) != 'admin')
+                            <li>
+                                @if(Request::segment(1) != 'admin')
+                                    <a class="dropdown-item" href="{{ url('/change-password') }}">
+                                        <i class="fa fa-lock" aria-hidden="true"></i> Change Password
+                                    </a>
+                                @endif
+                            </li>
+                        @endif
+
+                        @if(Auth::guard('web')->check() && Request::segment(1) != 'admin')
+                            <li>
+                                <a class="dropdown-item" href="{{ url('/profile') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                </a>
+                            </li>
+                        @endif
                         {{------------------ START GO TO WebSite ---------------------}}
                         <li>
                             <a class="dropdown-item" href="{{url('/')}}" target="_blank">
@@ -61,13 +88,13 @@
                     @if( Request::segment(1) != 'message-center' || Request::segment(1) == 'admin' &&  Request::segment(2) != 'message-center' )
                         @if(auth()->guard('admin')->check() &&  Request::segment(1) == 'admin')
                             @if(Request::segment(2) == 'users' )
-                                <li class="breadcrumb-item active">{{ 'Business Owners' }}</li>
+                                <li class="breadcrumb-item active">{{ 'Users' }}</li>
                             @else
                                 <li class="breadcrumb-item active">{{ str_replace('-', ' ', Request::segment(2)) }}</li>
                             @endif
                         @elseif(auth()->guard('web')->check() && Request::segment(1) != 'admin')
                             @if(Request::segment(1) == 'users' )
-                                <li class="breadcrumb-item active">{{ 'Business Owners' }}</li>
+                                <li class="breadcrumb-item active">{{ 'Users' }}</li>
                             @elseif(Request::segment(1) == 'buyer' )
                                 <li class="breadcrumb-item active">{{ 'Purchase' }}</li>
                             @elseif(Request::segment(1) == 'seller' )

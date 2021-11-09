@@ -14,16 +14,17 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card db-table">
                     <div class="card-header">
-                        <form method="GET" action="{{url('/admin/users')}}">
+                         <h5 class="title font-bold"> {{ __('Role') }} </h5>
+                        {{-- <form method="GET" action="{{url('/admin/users')}}">
                             <div class="row">
                                
                                 <div class="col-md-2 align-self-center">
-                                    <h5 class="title font-bold"> {{ __('Users') }} </h5>
+                                    <h5 class="title font-bold"> {{ __('Business Owners') }} </h5>
                                 </div>
 
                                 <div class="col-md-3 text-center">
                                     <div class="search-via">
-                                        <input type="text" name="name" value="{{ app('request')->input('name') }}" class="form-control" placeholder="Search via Name" autocomplete="off">
+                                        <input type="text" name="name" value="{{ app('request')->input('name') }}" class="form-control" placeholder="Search via Business Owner" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-3 text-center">
@@ -38,67 +39,54 @@
                                         <a href="{{url('/admin/users')}}" class="btn btn-secondary ml-3" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
                                     </div>
                                 
-                                    <a href="{{ url('/admin/users/create') }}" class="btn addbtn ml-3"><span class="mr-1"><i class="fa fa-plus-circle" aria-hidden="true"></i></span> Add User</a>
+                                    <a href="{{ url('/admin/users/create') }}" class="btn addbtn ml-3"><span class="mr-1"><i class="fa fa-plus-circle" aria-hidden="true"></i></span> Add Business Owner</a>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table table-striped db-table text-center">
                             <thead>
                                 <tr>
-                                    <th>S.No.</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
+                                    <th width="10%">S.No.</th>
+                                    <th width="25%">Role</th>
+                                    <th width="45%">permission</th>
+                                    <th width="20%">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="searchDataTable">
-                                @forelse($users as $key => $user)
-                                <tr>
-                                    <td>{{ $key+1 }}</td>
-                                    <td>{{ $user->name ?? '' }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        @if($user->status == '0')
-                                            <a href="javascript:;" class="status" data-id="{{$user->id}}" data-name="unpublish"><span class="badge badge-danger m-1">Deactive</span></a>
-                                        @else
-                                            <a href="javascript:;" class="status" data-id="{{$user->id}}" data-name="publish"><span class="badge badge-success m-1">Active</span></a>
-                                        @endif
-                                    </td>
-                                    <td>{{ $user->created_at->toDateString() }}</td>
-                                    {{--<td>
-                                        <a href="{{ url('/users/' . $user->id) }}" class="btn btn-block btn-primary">View</a>
-                                    </td>--}}
-                                    <td class="action-icon">
-                                        <div class="icon">
-                                            <a href="{{ url('/admin/users/' . $user->id . '/edit') }}" class="" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        </div>
-                                        <div class="icon">
-                                            <form action="{{ route('users.destroy', $user->id ) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <a href="javascript:;" class="delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></a>
-                                                <button type="submit" class=" deleteSubmit d-none" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse($roles as $key => $role)
+                                    <tr>
+                                        <td> {{ $key+1 }} </td>
+                                        <td> {{ $role->name ?? '' }} </td>
+                                        <td>
+                                            @if( count($role->permissions) > 0)
+                                                @foreach ($role->permissions as $permission)
+                                                    <span class="badge badge-info">{{$permission->name ?? '' }}</span>
+                                                @endforeach
+                                            @else
+                                            <span class="badge badge-danger">{{ 'Not Defined' }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-icon">
+                                            <div class="icon">
+                                                <a href="{{ url('/admin/role/' . $role->id . '/edit') }}" class="" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @empty
                                     <tr class="text-center">
                                         <td colspan="12" class="no-product">
                                             <div class="text-center mb-3">
                                                 <img src="{{ asset('images/no-product1.png') }}" alt="icon">
-                                                <h2 class="title-medium">Currently, There are no user found.</h2>
+                                                <h2 class="title-medium">Currently, There are no business owner found.</h2>
                                             </div>
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        {!! $users->appends(request()->query())->links() !!}
+                        {!! $roles->appends(request()->query())->links() !!}
                     </div>
                 </div>
             </div>
@@ -123,6 +111,9 @@
         var id = $(this).attr('data-id');
         var name = $(this).attr('data-name');
         var statusHtml = $(this).parent();
+
+        var password_status = $('#password_status-'+id).val();
+        var status = $('#status-'+id).val();
 
         swal({
             // title: 'Are you sure?',
@@ -150,8 +141,10 @@
                         
                         statusHtml.append('  <a href="javascript:;" class="status" data-name="unpublish" data-id="'+id+'" ><span class="badge badge-pill badge-danger p-2 m-1">Deactive</span></a>');
                         
+                        $('#proxy-'+id).addClass("disabled");
+                        
                         var row = '';
-                        row += '<div class="alert alert-card alert-danger" role="alert">User account has been Deactivated successfully.';
+                        row += '<div class="alert alert-card alert-danger" role="alert">Business owner account has been Deactivated successfully.';
                         row += '    <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>';
                         row += '</div>';
                         $('.success').html(' ');
@@ -166,7 +159,7 @@
                         statusHtml.append('  <a href="javascript:;" class="status" data-name="publish" data-id="'+id+'" ><span class="badge badge-pill badge-success p-2 m-1">Active</span></a>');
                         
                         var row = '';
-                        row += '<div class="alert alert-card alert-success" role="alert">User account has been Activated successfully.';
+                        row += '<div class="alert alert-card alert-success" role="alert">Business owner account has been Activated successfully.';
                         row += '    <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>';
                         row += '</div>';
                         $('.success').html(' ');
@@ -176,7 +169,10 @@
                             $('.alert-success').css('display', 'none')
                             $('.alert-danger').css('display', 'none')
                         }, 4000);
-
+                        
+                        if(password_status == '1' && status == '1'){
+                            $('#proxy-'+id).removeClass("disabled");
+                        }
                     }
                 }
             });
@@ -199,6 +195,8 @@
         var data = $(this).closest('.icon').find('.deleteSubmit');
         swal({
             title: 'Are you sure?',
+            // title: 'Delete',
+            // text:  'You want to delete business owner',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#0CC27E',

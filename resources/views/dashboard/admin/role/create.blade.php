@@ -1,0 +1,72 @@
+@extends('dashboard.base')
+@section('content')
+<style>
+label.error{
+    color: red;
+}
+</style>
+<div class="container-fluid">
+    <div class="wrapper">
+        @include('flash')
+        <form action="{{route('role.update',$role->id)}}" method="post" autocomplete="off" enctype="multipart/form-data">
+            @method('put')
+            @csrf
+            <div class="card">
+                <div class="card-header">
+                    <h2>Role</h2>
+                </div>
+                <div class="card-body">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="">Role Name</label>
+                            <input type="text" class="form-control" name="name" value="{{  $role['name'] ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Assign Permission</label>
+                            <select class="form-control select2" name="permission[]" multiple="" >
+                                @foreach ($allPermission as $permission)
+                                    @if($permission->guard_name == 'admin')
+                                        <option value="{{$permission->id}}" 
+                                            @if( count($role->permissions ) > 0) 
+                                            @foreach ($role->permissions as $asignPermission)
+                                                {{ $permission->id == $asignPermission->id ? 'selected' : '' }}
+                                            @endforeach
+                                            @endif
+                                            >{{ $permission->name ?? '' }}</option>
+                                      
+                                    @elseif($permission->guard_name == 'web')
+                                        <option value="{{$permission->id}}" 
+                                        @if( count($role->permissions ) > 0) 
+                                        @foreach ($role->permissions as $asignPermission)
+                                            {{ $permission->id == $asignPermission->id ? 'selected' : '' }}
+                                        @endforeach
+                                        @endif>{{ $permission->name ?? '' }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="">
+                            <button class="btn addbtn">Submit</button>
+                            <a href="" class="btn btn-light">Reset</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+	</div>
+</div>
+@endsection
+@section('javascript')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+<script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                closeOnSelect: false
+            });
+        });
+</script>
+
+@endsection
