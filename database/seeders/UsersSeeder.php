@@ -46,7 +46,7 @@ class UsersSeeder extends Seeder{
         */
        
         $user = Admin::create([ 
-            'first_name' => 'admin',
+            'name' => 'admin',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -62,7 +62,7 @@ class UsersSeeder extends Seeder{
 
           /*  insert users   */
         $user = User::create([ 
-            'first_name' => 'user',
+            'name' => 'user',
             'email' => 'user@user.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'), 
