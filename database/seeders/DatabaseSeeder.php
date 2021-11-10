@@ -16,11 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersSeeder::class,
             MenusTableSeeder::class,
-            // EmailSeeder::class,
             PermissionSeeder::class,
-            // LookUpSeeder::class,
-            // CountrySeeder::class,
-            PageTableSeeder::class,
+          
         ]);
     }
 }
