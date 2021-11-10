@@ -16,40 +16,38 @@ label.error{
                     <h2>Role</h2>
                 </div>
                 <div class="card-body">
-                    <form action="">
-                        <div class="form-group">
-                            <label for="">Role Name</label>
-                            <input type="text" class="form-control" name="name" value="{{  $role['name'] ?? '' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Assign Permission</label>
-                            <select class="form-control select2" name="permission[]" multiple="" >
-                                @foreach ($allPermission as $permission)
-                                    @if($permission->guard_name == 'admin')
-                                        <option value="{{$permission->id}}" 
-                                            @if( count($role->permissions ) > 0) 
-                                            @foreach ($role->permissions as $asignPermission)
-                                                {{ $permission->id == $asignPermission->id ? 'selected' : '' }}
-                                            @endforeach
-                                            @endif
-                                            >{{ $permission->name ?? '' }}</option>
-                                      
-                                    @elseif($permission->guard_name == 'web')
-                                        <option value="{{$permission->id}}" 
+                    <div class="form-group">
+                        <label for="">Role Name</label>
+                        <input type="text" class="form-control" name="name" value="{{  $role['name'] ?? '' }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Assign Permission</label>
+                        <select class="form-control select2" name="permission[]" multiple="" >
+                            @foreach ($allPermission as $permission)
+                                @if($permission->guard_name == 'admin')
+                                    <option value="{{$permission->id}}" 
                                         @if( count($role->permissions ) > 0) 
                                         @foreach ($role->permissions as $asignPermission)
                                             {{ $permission->id == $asignPermission->id ? 'selected' : '' }}
                                         @endforeach
-                                        @endif>{{ $permission->name ?? '' }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="">
-                            <button class="btn addbtn">Submit</button>
-                            <a href="" class="btn btn-light">Reset</a>
-                        </div>
-                    </form>
+                                        @endif
+                                        >{{ $permission->name ?? '' }}</option>
+                                    
+                                @elseif($permission->guard_name == 'web')
+                                    <option value="{{$permission->id}}" 
+                                    @if( count($role->permissions ) > 0) 
+                                    @foreach ($role->permissions as $asignPermission)
+                                        {{ $permission->id == $asignPermission->id ? 'selected' : '' }}
+                                    @endforeach
+                                    @endif>{{ $permission->name ?? '' }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="">
+                        <button class="btn addbtn">Submit</button>
+                        <a href="" class="btn btn-light">Reset</a>
+                    </div>
                 </div>
             </div>
         </form>

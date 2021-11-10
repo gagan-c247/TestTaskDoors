@@ -40,10 +40,10 @@ class RolePermissionController extends Controller
     {
         // return $request;
         $role = Role::find($id);
-        if($request->role != ''){
-            $role->name = $request->input('role');
-            $role->save();
-        } 
+        // if($request->role != ''){
+        //     $role->name = $request->input('role');
+        //     $role->save();
+        // } 
         DB::table('role_has_permissions')->where('role_id',$id)->delete();
         $role->givePermissionTo($request->input('permission'));
         session()->flash('success','Role Updated Successfully!');
