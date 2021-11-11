@@ -22,7 +22,7 @@ class UsersController extends Controller
         $this->middleware('permission:user-create', ['only'=>['create','store']]);
         $this->middleware('permission:user-edit', ['only'=>['edit', 'update']]);
         $this->middleware('permission:user-destroy', ['only'=>['destory']]);
-        $this->middleware('permission:user-proxy', ['only'=>['proxyLogin']]);
+        $this->middleware('permission:user-proxy',  ['only'=>['proxyLogin']]);
     }
 
   /**
@@ -31,23 +31,23 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        if($request->email !== null || $request->name !== null){
-            $user = User::where('menuroles', 'user');
-
-            if($request->name){
-                $users = $user->where('name', 'like', '%' . $request->name . '%');
+       
+            $users = User::where('menuroles', 'user');
+            if($request->name && $request->name != null){
+                $users = $users->where('name', 'like', '%' . $request->name . '%');
             }
 
-            if($request->email){
-                $users = $user->where('email', 'like', '%' . $request->email . '%');
+            if($request->email && $request->email != null ){
+                $users = $users->where('email', 'like', '%' . $request->email . '%');
             }
-                
-            $users = $users->orderBy('id', 'DESC')->paginate(20);
+
+            if(auth()->guard('admin')->check()){
+                $users = $users->orderBy('id', 'DESC')->paginate(20);
+            }else{
+                $users = $users->where('id','!=',auth()->guard('web')->id() )->orderBy('id', 'DESC')->paginate(20);
+            }
+            
             return view('dashboard.admin.usersList', compact('users'));
-        }else{
-            $users = User::where('menuroles', 'user')->orderBy('id', 'DESC')->paginate(20);
-            return view('dashboard.admin.usersList', compact('users'));
-        }
     }
     
     public function create(){
@@ -65,7 +65,11 @@ class UsersController extends Controller
         $user->assignRole('user');
 
         $request->session()->flash('success', 'User has been registered successfully.');
-        return redirect()->route('users.index');
+        if(auth()->guard('admin')->check()){
+            return redirect()->route('users.index');
+        }else{
+            return redirect()->to('/users');   
+        }
     }
 
     /**
@@ -105,15 +109,15 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->update();
-
-        if(Auth::guard('web')->check()){
-            $request->session()->flash('success', 'Your profile has been updated successfully.');
-            return redirect()->back();
-        }   
-
-        if(Auth::guard('admin')->check()){
-            $request->session()->flash('success', 'User profile updated successfully.');
+        // if(Auth::guard('web')->check()){
+        //     $request->session()->flash('success', 'Your profile has been updated successfully.');
+        //     return redirect()->back();
+        // }   
+        $request->session()->flash('success', 'User profile updated successfully.');
+        if(auth()->guard('admin')->check()){
             return redirect()->route('users.index');
+        }else{
+            return redirect()->to('/users');   
         }
     }
 
@@ -130,7 +134,12 @@ class UsersController extends Controller
                 $user->delete();
             }
             session()->flash('danger', 'User profile has been deleted successfully.');
-            return redirect()->route('users.index');
+
+         if(auth()->guard('admin')->check()){
+                return redirect()->route('users.index');
+            }else{
+                return redirect()->to('/users');   
+            }
         }
     }
 
@@ -143,7 +152,6 @@ class UsersController extends Controller
             return response()->json(['status'=>'success','message'=>'User Rejected','type'=>'deactivate']);
         }else{
             User::where('id', $id)->update(['status' => '1']);
-
             return response()->json(['status'=>'success','message'=>'User Approved','type'=>'activate']);
         }
     }

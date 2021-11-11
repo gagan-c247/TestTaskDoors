@@ -26,21 +26,27 @@
         return redirect()->route('admin.login');
     });
 
-    /* ============================== ADMIN  ROUTE ============================== */
+    //   /* ========== USER MANAGEMENT ROUTE ========== */
+      Route::get('/status/{id}', 'UsersController@status');
+      Route::resource('/users','UsersController');
+
+    /* ============================== ADMIN  ROUTE ============================== */ 
     Route::prefix('admin')->middleware('auth:admin')->group(function(){
         /* ========== DASHBOARD ========== */
         Route::get('/dashboard','DashboardController@adminDashboard')->name('admin.dashboard');
         
-        /* ========== USER MANAGEMENT ROUTE ========== */
+        // /* ========== USER MANAGEMENT ROUTE ========== */
         Route::get('/status/{id}', 'UsersController@status');
         Route::resource('/users','UsersController');
 
         /* ========== CHANGE PASSWORD ========== */
         Route::resource('/change-password',  'admin\ChangePasswordController');
 
+        /* ========== SETTING ROUTE ========== */
+        Route::resource('/setting', 'admin\SettingController');
+
         /* =========== Role Permission =============*/
         Route::resource('/role','Admin\RolePermissionController');
-        
     });
     
     /* ============================== USER ROUTE ============================== */

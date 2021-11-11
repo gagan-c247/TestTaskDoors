@@ -9,14 +9,18 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Cashier\Billable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use Notifiable;
     // use SoftDeletes;
     use HasRoles;
     use HasFactory;
     use Billable;
+    use InteractsWithMedia;
+
     
     protected $table = 'users';
    

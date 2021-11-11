@@ -22,13 +22,13 @@ label.error{
                             </div>
                             <div class="col-md-6 col-5">
                                 <div class="text-right">
-                                    <a href="{{ url('/admin/users') }}" class="btn addbtn">Back</a>
+                                    <a href="{{ Request::segment(1) == 'admin' ? url('/admin/users') : url('/users') }}" class="btn addbtn">Back</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{url('/admin/users')}}" autocomplete="off">
+                        <form method="POST" action="{{ Request::segment(1) == 'admin' ? url('/admin/users') : url('/users') }}" autocomplete="off">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">

@@ -24,7 +24,7 @@
                         @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
                             <img class="c-avatar-img" src="{{ url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
                         @else
-                            <img class="c-avatar-img" src="{{ auth()->guard('web')->user()->getFirstMediaUrl('image', 'thumb') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                            <img class="c-avatar-img" src="{{ auth()->guard('web')->user()->getFirstMediaUrl('image', 'thumb') ??  url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
                         @endif
                     </div>
                 </a>
@@ -34,13 +34,18 @@
                     </div>
                     <ul class="db-header-right">
                         @if(Auth::guard('admin')->check() && Request::segment(1) == 'admin')
+                        @if(Request::segment(1) == 'admin')
                         <li>
-                            @if(Request::segment(1) == 'admin')
-                                <a class="dropdown-item" href="{{ url('/admin/change-password') }}">
-                                    <i class="fa fa-lock"></i> Change Password
-                                </a>
-                            @endif
+                            <a class="dropdown-item" href="{{ url('/admin/change-password') }}">
+                                <i class="fa fa-lock"></i> Change Password
+                            </a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/admin/setting') }}">
+                                <i class="fa fa-cog" aria-hidden="true"></i> Settings
+                            </a>
+                        </li>
+                        @endif
                         @elseif(Request::segment(1) != 'admin')
                             <li>
                                 @if(Request::segment(1) != 'admin')

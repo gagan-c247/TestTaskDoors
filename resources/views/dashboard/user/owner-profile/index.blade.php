@@ -46,9 +46,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @if($user->getFirstMediaUrl('image', 'thumb'))
-                                        <img src="{{$user->getFirstMediaUrl('image', 'thumb')}}" / width="75" height="75">
-                                        @endif
+                                        {{-- @if($user->getFirstMediaUrl('image', 'thumb') != null)
+                                           <img src="{{$user->getFirstMediaUrl('image', 'thumb')}}"  width="75" height="75">
+                                        @endif --}}
                                     </div>
                                 </div>
                             </div>

@@ -8,8 +8,13 @@ label.error{
 <div class="container-fluid">
     <div class="wrapper">
         @include('flash')
-        <form action="{{route('role.update',$role->id)}}" method="post" autocomplete="off" enctype="multipart/form-data">
-            @method('put')
+        {!!
+            Form::model($role,[
+                'route' => $role->exists ? ['role.update',$role->id] : ['role.store'],
+                'method' => $role->exists ? 'PUT' : 'POST',
+                'files' => true,
+            ])    
+        !!}
             @csrf
             <div class="card">
                 <div class="card-header">
@@ -18,13 +23,14 @@ label.error{
                 <div class="card-body">
                     <div class="form-group">
                         <label for="">Role Name</label>
-                        <input type="text" class="form-control" name="name" value="{{  $role['name'] ?? '' }}" readonly>
+                        <input type="text" class="form-control" name="name" value="{{  $role['name'] ?? '' }}" {{ $role->exists ? 'readonly' : '' }}>
                     </div>
                     <div class="form-group">
                         <label for="">Assign Permission</label>
                         <select class="form-control select2" name="permission[]" multiple="" >
                             @foreach ($allPermission as $permission)
-                                @if($permission->guard_name == 'admin')
+                            
+                                @if($role->guard_name == 'admin' && $permission->guard_name == 'admin')
                                     <option value="{{$permission->id}}" 
                                         @if( count($role->permissions ) > 0) 
                                         @foreach ($role->permissions as $asignPermission)
@@ -32,7 +38,6 @@ label.error{
                                         @endforeach
                                         @endif
                                         >{{ $permission->name ?? '' }}</option>
-                                    
                                 @elseif($permission->guard_name == 'web')
                                     <option value="{{$permission->id}}" 
                                     @if( count($role->permissions ) > 0) 
@@ -50,7 +55,7 @@ label.error{
                     </div>
                 </div>
             </div>
-        </form>
+        {{ Form::close() }}
 	</div>
 </div>
 @endsection

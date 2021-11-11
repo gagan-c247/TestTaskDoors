@@ -37,7 +37,7 @@ class ChangePasswordController extends Controller{
     public function store(Request $request){
         $this->validate($request, [
             'old_password' => 'required|string|min:8',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed'
         ]);
 
         $adminPassword =  User::find(auth::id())->password;

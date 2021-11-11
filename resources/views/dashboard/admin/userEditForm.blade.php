@@ -7,6 +7,7 @@ label.error{
 </style>
 <div class="container-fluid">
     <div class="fade-in">
+        @include('flash')
         <div class="row">
             @if(session()->has('message'))
                 <div class="alert alert-success">
@@ -28,11 +29,9 @@ label.error{
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{auth()->guard('admin')->check() && Request::segment(1) == 'admin' ? url('/admin/users/'.$user->id) : url('/profile'.'/'.$user->id) }}" id="wizard" method="post" autocomplete="off" enctype="multipart/form-data">
-                            @csrf
-                            @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
+                        <form action="{{auth()->guard('admin')->check() && Request::segment(1) == 'admin' ? url('/admin/users/'.$user->id) : url('/users'.'/'.$user->id) }}" id="wizard" method="post" autocomplete="off" enctype="multipart/form-data">
+                            @csrf        
                             @method('PUT')
-                            @endif
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">

@@ -14,9 +14,8 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card db-table">
                     <div class="card-header">
-                        <form method="GET" action="{{url('/admin/users')}}">
+                        <form method="GET" action="{{Request::segment(1) == 'admin' ? url('/admin/users') : url('/users')}}">
                             <div class="row">
-                               
                                 <div class="col-md-2 align-self-center">
                                     <h5 class="title font-bold"> {{ __('Users') }} </h5>
                                 </div>
@@ -33,12 +32,11 @@
                                 </div>
                                 <div class="col-md-4 text-right align-self-center add-owner">
                                     <div class="search-via">
-                                        <button type="submit" class="btn btn-secondary" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>
-                                    
-                                        <a href="{{url('/admin/users')}}" class="btn btn-secondary ml-3" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
+                                        <button type="submit" class="btn btn-secondary" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>                                    
+                                        <a href="{{ Request::segment(1) == 'admin' ? url('/admin/users') : url('/users') }}" class="btn btn-secondary ml-3" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
                                     </div>
                                 
-                                    <a href="{{ url('/admin/users/create') }}" class="btn addbtn ml-3"><span class="mr-1"><i class="fa fa-plus-circle" aria-hidden="true"></i></span> Add User</a>
+                                    <a href="{{ Request::segment(1) == 'admin' ? url('/admin/users/create') : url('/users/create') }}" class="btn addbtn ml-3"><span class="mr-1"><i class="fa fa-plus-circle" aria-hidden="true"></i></span> Add User</a>
                                 </div>
                             </div>
                         </form>
@@ -73,17 +71,21 @@
                                         <a href="{{ url('/users/' . $user->id) }}" class="btn btn-block btn-primary">View</a>
                                     </td>--}}
                                     <td class="action-icon">
+                                        @can('user-edit')
                                         <div class="icon">
-                                            <a href="{{ url('/admin/users/' . $user->id . '/edit') }}" class="" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ Request::segment(1) == 'admin' ? url('/admin/users/' . $user->id . '/edit') : url('/users'.'/'.$user->id.'/edit') }}" class="btn btn-light" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
+                                        @endcan
+                                        @can('user-destroy')
                                         <div class="icon">
-                                            <form action="{{ route('users.destroy', $user->id ) }}" method="POST">
+                                            <form action="{{ Request::segment(1) == 'admin' ? url('admin/users/'.$user->id) :  url('/users'.'/'.$user->id)  }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <a href="javascript:;" class="delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                                <a href="javascript:;" class="delete btn btn-light" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></a>
                                                 <button type="submit" class=" deleteSubmit d-none" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
                                             </form>
                                         </div>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty

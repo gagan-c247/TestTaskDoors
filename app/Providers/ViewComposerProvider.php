@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Page;
-use App\Http\Composers\PageStatusComposer;
-use App\Http\Composers\RegComposer;
+// use App\Http\Composers\PageStatusComposer;
+// use App\Http\Composers\RegComposer;
 
 class ViewComposerProvider extends ServiceProvider
 {
@@ -26,12 +26,12 @@ class ViewComposerProvider extends ServiceProvider
      */
     public function boot()
     {
-        \View::composer([
-            'frontend.frontBase','dashboard.authBase'
-        ], PageStatusComposer::class);
+        // \View::composer([
+        //     'frontend.frontBase','dashboard.authBase'
+        // ], PageStatusComposer::class);
 
-        \View::composer([
-            'auth.register'
-        ], RegComposer::class);
+        // \View::composer([
+        //     'auth.register'
+        // ], RegComposer::class);
     }
 }

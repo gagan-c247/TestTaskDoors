@@ -15,7 +15,6 @@
 
     </li>
     {{-- @can('user-section') --}}
-    @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
     @can('user-section')
         <li class="c-sidebar-nav-dropdown">
             <a class="c-sidebar-nav-dropdown-toggle" href="javascript:;">
@@ -25,7 +24,7 @@
             <ul class="c-sidebar-nav-dropdown-items">
                 @can('user-index')
                     <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link {{ request()->is('/admin/users') ? 'c-active' : '' }}" href="{{url('/admin/users')}}">
+                        <a class="c-sidebar-nav-link {{ request()->is('/admin/users') ? 'c-active' : '' }}" href="{{ Request::segment(1) == 'admin' ? url('/admin/users') : url('/users') }}">
                             <span class="c-sidebar-nav-icon"></span>
                             User
                         </a>
@@ -33,7 +32,7 @@
                 @endcan
                 @can('user-create')
                     <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link {{ request()->is('/admin/users/create') ? 'c-active' : '' }}" href="{{url('/admin/users/create')}}">
+                        <a class="c-sidebar-nav-link {{ request()->is('/admin/users/create') ? 'c-active' : '' }}" href="{{ Request::segment(1) == 'admin' ? url('/admin/users/create') : url('/users/create') }}">
                             <span class="c-sidebar-nav-icon"></span>
                             Add User
                         </a>
@@ -42,14 +41,17 @@
             </ul>
         </li>
     @endcan
-    @endif
     {{-- @endcan --}}
+    @can('role-section')
+        @can('role-index')
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{ request()->is('/admin/role') ? 'c-active' : '' }}" href="{{url('/admin/role')}}">
+                    <i class="cil-speedometer c-sidebar-nav-icon"></i> Role
+                </a>
+            </li>
+        @endcan
+    @endcan
 
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link {{ request()->is('/admin/role') ? 'c-active' : '' }}" href="{{url('/admin/role')}}">
-            <i class="cil-speedometer c-sidebar-nav-icon"></i> Role
-        </a>
-    </li>
     <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
         <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
     </div>
