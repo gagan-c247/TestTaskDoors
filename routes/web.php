@@ -42,9 +42,6 @@
         /* ========== CHANGE PASSWORD ========== */
         Route::resource('/change-password',  'admin\ChangePasswordController');
 
-        /* ========== SETTING ROUTE ========== */
-        Route::resource('/setting', 'admin\SettingController');
-
         /* =========== Role Permission =============*/
         Route::resource('/role','Admin\RolePermissionController');
     });
