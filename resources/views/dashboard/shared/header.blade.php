@@ -40,11 +40,6 @@
                                 <i class="fa fa-lock"></i> Change Password
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ url('/admin/setting') }}">
-                                <i class="fa fa-cog" aria-hidden="true"></i> Settings
-                            </a>
-                        </li>
                         @endif
                         @elseif(Request::segment(1) != 'admin')
                             <li>

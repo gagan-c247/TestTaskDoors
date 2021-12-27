@@ -9,8 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Cashier\Billable;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+// use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -19,7 +20,8 @@ class User extends Authenticatable implements HasMedia
     use HasRoles;
     use HasFactory;
     use Billable;
-    use InteractsWithMedia;
+    // use InteractsWithMedia;
+    use HasMediaTrait;
 
     
     protected $table = 'users';

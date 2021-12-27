@@ -20,197 +20,248 @@ trait ReviewRateable
      *
      * @param $round
      * @param $onlyApproved
-     * @return mixed
+     *
+     * @return double
      */
     public function averageRating($round= null, $onlyApproved= false)
     {
-      $where = $onlyApproved ? [['approved', '1']] : [];
+        $where = $onlyApproved ? [['approved', '1']] : [];
+        $avgExpression = null;
 
-      if ($round) {
-            return $this->ratings()
-              ->selectRaw('ROUND(AVG(rating), '.$round.') as averageReviewRateable')
-              ->where($where)
-              ->pluck('averageReviewRateable');
+        if ($round) {
+            $avgExpression = 'ROUND(AVG(rating), ' . $round . ') as averageReviewRateable';
+        } else {
+            $avgExpression = 'AVG(rating) as averageReviewRateable';
         }
 
         return $this->ratings()
-            ->selectRaw('AVG(rating) as averageReviewRateable')
+            ->selectRaw($avgExpression)
             ->where($where)
-            ->pluck('averageReviewRateable');
+            ->get()
+            ->first()
+            ->averageReviewRateable;
     }
 
     /**
      *
      * @var $round
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return double
      */
     public function averageCustomerServiceRating($round= null, $onlyApproved= false)
     {
         $where = $onlyApproved ? [['approved', '1']] : [];
 
+        $avgExpression = null;
+
         if ($round) {
-            return $this->ratings()
-                ->selectRaw('ROUND(AVG(customer_service_rating), '.$round.') as averageCustomerServiceReviewRateable')
-                ->where($where)
-                ->pluck('averageCustomerServiceReviewRateable');
+            $avgExpression = 'ROUND(AVG(customer_service_rating), ' . $round . ') as averageCustomerServiceReviewRateable';
+        } else {
+            $avgExpression = 'AVG(customer_service_rating) as averageCustomerServiceReviewRateable';
         }
 
         return $this->ratings()
-            ->selectRaw('AVG(customer_service_rating) as averageCustomerServiceReviewRateable')
+            ->selectRaw($avgExpression)
             ->where($where)
-            ->pluck('averageCustomerServiceReviewRateable');
+            ->get()
+            ->first()
+            ->averageCustomerServiceReviewRateable;
     }
 
     /**
      *
      * @param $round
      * @param $onlyApproved
-     * @return mixed
+     *
+     * @return double
      */
     public function averageQualityRating($round = null, $onlyApproved= false)
     {
         $where = $onlyApproved ? [['approved', '1']] : [];
 
+        $avgExpression = null;
+
         if ($round) {
-            return $this->ratings()
-                ->selectRaw('ROUND(AVG(quality_rating), '.$round.') as averageQualityReviewRateable')
-                ->where($where)
-                ->pluck('averageQualityReviewRateable');
+            $avgExpression = 'ROUND(AVG(quality_rating), ' . $round . ') as averageQualityReviewRateable';
+        } else {
+            $avgExpression = 'AVG(quality_rating) as averageQualityReviewRateable';
         }
 
         return $this->ratings()
-            ->selectRaw('AVG(quality_rating) as averageQualityReviewRateable')
+            ->selectRaw($avgExpression)
             ->where($where)
-            ->pluck('averageQualityReviewRateable');
+            ->get()
+            ->first()
+            ->averageQualityReviewRateable;
     }
 
     /**
      *
      * @var $round
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return double
      */
     public function averageFriendlyRating($round = null, $onlyApproved= false)
     {
         $where = $onlyApproved ? [['approved', '1']] : [];
 
+        $avgExpression = null;
+
         if ($round) {
-            return $this->ratings()
-                ->selectRaw('ROUND(AVG(friendly_rating), '.$round.') as averageFriendlyReviewRateable')
-                ->where($where)
-                ->pluck('averageFriendlyReviewRateable');
+            $avgExpression = 'ROUND(AVG(friendly_rating), ' . $round . ') as averageFriendlyReviewRateable';
+        } else {
+            $avgExpression = 'AVG(friendly_rating) as averageFriendlyReviewRateable';
         }
 
         return $this->ratings()
-            ->selectRaw('AVG(friendly_rating) as averageFriendlyReviewRateable')
+            ->selectRaw($avgExpression)
             ->where($where)
-            ->pluck('averageFriendlyReviewRateable');
+            ->get()
+            ->first()
+            ->averageFriendlyReviewRateable;
     }
 
     /**
      *
      * @var $round
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return double
      */
-    public function averagePricingRating($round = null, $onlyApproved= false)
+    public function averagePricingRating($round = null, $onlyApproved = false)
     {
         $where = $onlyApproved ? [['approved', '1']] : [];
 
+        $avgExpression = null;
+
         if ($round) {
-            return $this->ratings()
-                ->selectRaw('ROUND(AVG(pricing_rating), '.$round.') as averagePricingReviewRateable')
-                ->where($where)
-                ->pluck('averagePricingReviewRateable');
+            $avgExpression = 'ROUND(AVG(pricing_rating), ' . $round . ') as averagePricingReviewRateable';
+        } else {
+            $avgExpression = 'AVG(pricing_rating) as averagePricingReviewRateable';
         }
 
         return $this->ratings()
-            ->selectRaw('AVG(pricing_rating) as averagePricingReviewRateable')
+            ->selectRaw($avgExpression)
             ->where($where)
-            ->pluck('averagePricingReviewRateable');
+            ->get()
+            ->first()
+            ->averagePricingReviewRateable;
     }
 
     /**
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return int
      */
-    public function countRating($onlyApproved= false)
+    public function countRating($onlyApproved = false)
     {
-      return $this->ratings()
-          ->selectRaw('count(rating) as countReviewRateable')
-          ->where($onlyApproved ? [['approved', '1']] : [])
-          ->pluck('countReviewRateable');
+        $where = $onlyApproved ? [['approved', '1']] : [];
+
+        return $this->ratings()
+            ->selectRaw('count(rating) as countReviewRateable')
+            ->where($where)
+            ->get()
+            ->first()
+            ->countReviewRateable;
     }
 
     /**
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return int
      */
-    public function countCustomerServiceRating($onlyApproved= false)
+    public function countCustomerServiceRating($onlyApproved = false)
     {
+        $where = $onlyApproved ? [['approved', '1']] : [];
+
         return $this->ratings()
             ->selectRaw('count(customer_service_rating) as countCustomerServiceReviewRateable')
-            ->where($onlyApproved ? [['approved', '1']] : [])
-            ->pluck('countCustomerServiceReviewRateable');
+            ->where($where)
+            ->get()
+            ->first()
+            ->countCustomerServiceReviewRateable;
     }
 
     /**
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return int
      */
-    public function countQualityRating($onlyApproved= false)
+    public function countQualityRating($onlyApproved = false)
     {
+        $where = $onlyApproved ? [['approved', '1']] : [];
+
         return $this->ratings()
             ->selectRaw('count(quality_rating) as countQualityReviewRateable')
-            ->where($onlyApproved ? [['approved', '1']] : [])
-            ->pluck('countQualityReviewRateable');
+            ->where($where)
+            ->get()
+            ->first()
+            ->countQualityReviewRateable;
     }
 
     /**
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return int
      */
-    public function countFriendlyRating($onlyApproved= false) {
+    public function countFriendlyRating($onlyApproved = false) 
+    {
+        $where = $onlyApproved ? [['approved', '1']] : [];
+
         return $this->ratings()
             ->selectRaw('count(friendly_rating) as countFriendlyReviewRateable')
-            ->where($onlyApproved ? [['approved', '1']] : [])
-            ->pluck('countFriendlyReviewRateable');
+            ->where($where)
+            ->get()
+            ->first()
+            ->countFriendlyReviewRateable;
     }
 
     /**
      * @var $onlyApproved
-     * @return mixed
+     *
+     * @return int
      */
-    public function countPriceRating($onlyApproved= false) {
-        return $this->ratings()
-            ->selectRaw('count(price_rating) as countPriceReviewRateable')
-            ->where($onlyApproved ? [['approved', '1']] : [])
-            ->pluck('countPriceReviewRateable');
-    }
-
-    /**
-     * @var $onlyApproved
-     * @return mixed
-     */
-    public function sumRating($onlyApproved= false)
+    public function countPriceRating($onlyApproved = false) 
     {
+        $where = $onlyApproved ? [['approved', '1']] : [];
+
+        return $this->ratings()
+            ->selectRaw('count(pricing_rating) as countPriceReviewRateable')
+            ->where($where)
+            ->get()
+            ->first()
+            ->countPriceReviewRateable;
+    }
+
+    /**
+     * @var $onlyApproved
+     *
+     * @return double
+     */
+    public function sumRating($onlyApproved = false)
+    {
+        $where = $onlyApproved ? [['approved', '1']] : [];
+
         return $this->ratings()
             ->selectRaw('SUM(rating) as sumReviewRateable')
-            ->where($onlyApproved ? [['approved', '1']] : [])
-            ->pluck('sumReviewRateable');
+            ->where($where)
+            ->get()
+            ->first()
+            ->sumReviewRateable;
     }
 
     /**
      * @param $max
      *
-     * @return mixed
+     * @return double
      */
     public function ratingPercent($max = 5)
     {
         $ratings = $this->ratings();
         $quantity = $ratings->count();
-        $total = $ratings->selectRaw('SUM(rating) as total')->pluck('total');
+        $total = $ratings->selectRaw('SUM(rating) as total')->get()->first()->total;
         return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
     }
 
@@ -219,7 +270,7 @@ trait ReviewRateable
      * @param $author
      * @param $parent
      *
-     * @return mixed
+     * @return static
      */
     public function rating($data, Model $author, Model $parent = null)
     {
@@ -242,6 +293,7 @@ trait ReviewRateable
      *
      * @param $id
      * @param $sort
+     *
      * @return mixed
      */
     public function getAllRatings($id, $sort = 'desc')
@@ -253,6 +305,7 @@ trait ReviewRateable
      *
      * @param $id
      * @param $sort
+     *
      * @return mixed
      */
     public function getApprovedRatings($id, $sort = 'desc')
@@ -264,6 +317,7 @@ trait ReviewRateable
      *
      * @param $id
      * @param $sort
+     *
      * @return mixed
      */
     public function getNotApprovedRatings($id, $sort = 'desc')
@@ -275,6 +329,7 @@ trait ReviewRateable
      * @param $id
      * @param $limit
      * @param $sort
+     *
      * @return mixed
      */
     public function getRecentRatings($id, $limit = 5, $sort = 'desc')
@@ -287,11 +342,25 @@ trait ReviewRateable
      * @param $limit
      * @param $approved
      * @param $sort
+     *
      * @return mixed
      */
     public function getRecentUserRatings($id, $limit = 5, $approved = true, $sort = 'desc')
     {
         return (new Rating())->getRecentUserRatings($id, $limit, $approved, $sort);
+    }
+
+    /**
+     * @param $rating
+     * @param $type
+     * @param $approved
+     * @param $sort
+     *
+     * @return mixed
+     */
+    public function getCollectionByAverageRating($rating, $type = 'rating', $approved = true, $sort = 'desc')
+    {
+        return (new Rating())->getCollectionByAverageRating($rating, $approved, $sort);
     }
 
     /**
@@ -302,5 +371,15 @@ trait ReviewRateable
     public function deleteRating($id)
     {
         return (new Rating())->deleteRating($id);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function getUserRatings($id, $author, $sort = 'desc')
+    {
+        return (new Rating())->getUserRatings($id, $author, $sort = 'desc');
     }
 }

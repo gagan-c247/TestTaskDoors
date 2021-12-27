@@ -3,7 +3,7 @@
 namespace Spatie\MediaLibrary\ResponsiveImages\WidthCalculator;
 
 use Illuminate\Support\Collection;
-use Spatie\MediaLibrary\Support\ImageFactory;
+use Spatie\MediaLibrary\Helpers\ImageFactory;
 
 class FileSizeOptimizedWidthCalculator implements WidthCalculator
 {

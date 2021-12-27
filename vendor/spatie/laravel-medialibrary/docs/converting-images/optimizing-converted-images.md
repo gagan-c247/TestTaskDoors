@@ -3,12 +3,12 @@ title: Optimizing converted images
 weight: 3
 ---
 
-The media library will shave off some kilobytes of the converted images by running them through a chain of various image optimization tools.
+The medialibrary will shave off some kilobytes of the converted images by running them through a chain of various image optimization tools.
 
 The optimization will only be applied on converted images, the package will not modify your original files. If you want to avoid optimization of a conversion just tack `nonOptimized` to the  conversion.
 
 ```php
-public function registerMediaConversions(Media $media = null): void
+public function registerMediaConversions(Media $media = null)
 {
    $this->addMediaConversion('thumb')
       ->width(368)
@@ -26,15 +26,7 @@ The package will use these optimizers if they are present on your system:
 - [SVGO](https://github.com/svg/svgo)
 - [Gifsicle](http://www.lcdf.org/gifsicle/)
 
-Head over to [the installation page](https://docs.spatie.be/laravel-medialibrary/v9/installation-setup#optimization-tools) to learn how to install these.
-
-## Are you a visual learner?
-
-Here's a video that shows how to optimize images
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5Ftv0QnTbwo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-Want to see more videos like this? Check out our [free video course on how to use Laravel Media Library](https://spatie.be/videos/discovering-laravel-media-library).
+Head over to [the installation page](https://docs.spatie.be/laravel-medialibrary/v6/installation-setup#optimization-tools) to learn how to install these.
 
 ## Which tools will do what?
 

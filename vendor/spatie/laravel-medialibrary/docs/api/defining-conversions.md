@@ -5,7 +5,7 @@ weight: 2
 
 A media conversion can be added to your model in the `registerMediaConversions`-function. It should start with a call to `addMediaConversion`. From there on you can use any of the methods available in the API. They are all chainable.
 
-Take a look in the [Defining conversions section](/laravel-medialibrary/v9/converting-images/defining-conversions/)
+Take a look in the [Defining conversions section](/laravel-medialibrary/v7/converting-images/defining-conversions/)
 for more details.
 
 ## General methods
@@ -13,46 +13,50 @@ for more details.
 ### addMediaConversion
 
 ```php
-/*
+/**
  * Add a conversion.
+ *
+ * @param string $name
+ *
+ * @return \Spatie\MediaLibrary\Conversion\Conversion
  */
-public function addMediaConversion(string $name): \Spatie\MediaLibrary\Conversions\Conversion
+public function addMediaConversion($name)
 ```
 
 ### performOnCollections
 
 ```php
-/*
+/**
  * Set the collection names on which this conversion must be performed.
  *
  * @param string $collectionNames,...
+ *
+ * @return $this
  */
-public function performOnCollections($collectionNames): self
+public function performOnCollections($collectionNames)
 ``` 
 
 ### queued
 
 ```php 
-/*
+/**
  * Mark this conversion as one that should be queued.
+ *
+ * @return $this
  */
- public function queued(): self
+ public function queued()
 ```
 
 ### nonQueued
 
 ```php 
-/*
+/**
  * Mark this conversion as one that should not be queued.
+ *
+ * @return $this
  */
-public function nonQueued(): self
+public function nonQueued()
 ```
-
-### useLoadingAttributeValue
-
-This is the value that, when this conversation is converted to html, will be used in the `loading` attribute. The loading attribute is a standardised attribute that controls lazy loading behaviour of the browser. Possible values are `lazy`, `eager`, `auto` or null if you don't want to set any loading instruction.
-
-You can learn more on native lazy loading [in this post on css-tricks](https://css-tricks.com/native-lazy-loading/).
 
 ## Image manipulations
 

@@ -14,78 +14,79 @@ interface ReviewRateable
     /**
      *
      * @param $round
-     * @return mixed
+     * @return double
      */
     public function averageRating($round = null);
 
     /**
      *
      * @param $round
-     * @return mixed
+     * @return double
      */
     public function averageCustomerServiceRating($round = null);
 
     /**
      *
      * @param $round
-     * @return mixed
+     * @return double
      */
     public function averageQualityRating($round = null);
 
     /**
      *
      * @param $round
-     * @return mixed
+     * @return double
      */
     public function averageFriendlyRating($round = null);
 
     /**
      *
      * @param $round
-     * @return mixed
+     * @return double
      */
     public function averagePricingRating($round = null);
 
     /**
      *
-     * @return mixed
+     * @return int
      */
     public function countRating();
 
     /**
      *
-     * @return mixed
+     * @return int
      */
     public function countCustomerServiceRating();
 
     /**
      *
-     * @return mixed
+     * @return int
      */
     public function countQualityRating();
 
     /**
      *
-     * @return mixed
+     * @return int
      */
     public function countFriendlyRating();
 
     /**
      *
-     * @return mixed
+     * @return int
      */
     public function countPriceRating();
 
     /**
      *
-     * @return mixed
+     * @return double
      */
     public function sumRating();
 
     /**
      *
      * @param $max
-     * @return mixed
+     *
+     * @return double
      */
     public function ratingPercent($max = 5);
 
@@ -94,7 +95,8 @@ interface ReviewRateable
      * @param $data
      * @param $author
      * @param $parent
-     * @return mixed
+     *
+     * @return static
      */
     public function rating($data, Model $author, Model $parent = null);
 
@@ -103,6 +105,7 @@ interface ReviewRateable
      * @param $id
      * @param $data
      * @param $parent
+     *
      * @return mixed
      */
     public function updateRating($id, $data, Model $parent = null);
@@ -111,6 +114,7 @@ interface ReviewRateable
      *
      * @param $id
      * @param $sort
+     *
      * @return mixed
      */
     public function getAllRatings($id, $sort = 'desc');
@@ -119,6 +123,7 @@ interface ReviewRateable
      *
      * @param $id
      * @param $sort
+     *
      * @return mixed
      */
     public function getApprovedRatings($id, $sort = 'desc');
@@ -127,6 +132,7 @@ interface ReviewRateable
      *
      * @param $id
      * @param $sort
+     *
      * @return mixed
      */
     public function getNotApprovedRatings($id, $sort = 'desc');
@@ -135,6 +141,7 @@ interface ReviewRateable
      * @param $id
      * @param $limit
      * @param $sort
+     *
      * @return mixed
      */
     public function getRecentRatings($id, $limit = 5, $sort = 'desc');
@@ -144,14 +151,33 @@ interface ReviewRateable
      * @param $limit
      * @param $approved
      * @param $sort
+     *
      * @return mixed
      */
     public function getRecentUserRatings($id, $limit = 5, $approved = true, $sort = 'desc');
+
+    /**
+     * @param $rating
+     * @para $type
+     * @param $approved
+     * @param $sort
+     *
+     * @return mixed
+     */
+    public function getCollectionByAverageRating($rating, $type = 'rating', $approved = true, $sort = 'desc');
+
+    /**
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function deleteRating($id);
 
     /**
      *
      * @param $id
      * @return mixed
      */
-    public function deleteRating($id);
+    public function getUserRatings($id, $author, $sort = 'desc');
 }

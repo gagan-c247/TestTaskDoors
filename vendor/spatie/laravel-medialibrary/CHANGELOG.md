@@ -2,345 +2,18 @@
 
 All notable changes to `laravel-medialibrary` will be documented in this file
 
-## 9.8.2 - 2021-10-13
-
-- revert #2609
-
-## 9.8.1 - 2021-10-08
-
-- fix missing image preview URLs in Inertia Projects (#2609)
-
-## 9.8.0 - 2021-10-04
-
-- add simpler way to prefix the root directory where media are saved (#2576)
-
-## 9.7.5 - 2021-10-03
-
-- Remove regex on FileNamer (#2587)
-
-## 9.7.4 - 2021-09-10
-
-- include --force param to image_optimzer . jpegoptim (#2580)
-
-## 9.7.3 - 2021-09-04
-
-- make sure only the extension is removed on DefaultFileNamer (#2575)
-
-## 9.7.2 - 2021-08-22
-
-- add custom header support for temporary uploads (#2557)
-
-## 9.7.1 - 2021-07-29
-
-- allow `keepOriginalImageFormat()` method to work with uppercase file extensions (#2527)
-
-## 9.7.0 - 2021-07-28
-
-- add getMediaRepository() to InteractsWithMedia and query() to MediaRepository (#2523)
-
-## 9.6.4 - 2021-06-23
-
-- fix syntax error
-
-## 9.6.3 - 2021-06-23
-
-- add the option to skip 'deprecated conversions' when cleaning the media directory
-
-## 9.6.2 - 2021-05-06
-
-- simplify and speed up code for copying a stream to disk (#2425)
-
-## 9.6.1 - 2021-05-06
-
-- update InteractsWithMedia.php (#2421)
-
-## 9.6.0 - 2021-05-05
-
-- add a way to rename files globally (#2418)
-
-## 9.5.6 - 2021-04-20
-
-- include extra_headers when adding media from same S3 Disk (#2403)
-
-## 9.5.5 - 2021-04-13
-
-- fix adding private media from same S3 Disk (#2382)
-
-## 9.5.4 - 2021-04-12
-
-- add `Collection` typehint to `addMultipleMediaFromRequest` (#2389)
-
-## 9.5.3 - 2021-04-08
-
-- fix #2372 the fallback should be the original image (#2377)
-
-## 9.5.2 - 2021-04-07
-
-- allow v2 of spatie/temporary-directory
-
-## 9.5.1 - 2021-04-05
-
-- return Fallback url or path when conversion is not ready yet (#2369)
-
-## 9.5.0 - 2021-03-29
-
-- add `addMediaFromStream` (#2363)
-
-## 9.4.4 - 2021-03-15
-
-- allow `null` in the FileAdder 'order' setter (#2336)
-
-## 9.4.3 - 2021-03-07
-
-- `DiskDoesNotExist` moved to it's own class (#2306)
-
-## 9.4.2 - 2021-01-15
-
-- improve `preservingOriginal` (#2258)
-
-## 9.4.1 - 2020-12-16
-
-- fixed generated conversions race-condition (#2235)
-
-## 9.4.0 - 2020-12-02
-
-- add `moves_media_on_update` config value
-
-## 9.3.0 - 2020-11-30
-
-- add `generate_thumbnails_for_temporary_uploads` config value
-
-## 9.2.0 - 2020-11-26
-
-- add `enable_temporary_uploads_session_affinity` config value
-
-## 9.1.7 - 2020-11-24
-
-- add unique index to UUID column (#2197)
-
-## 9.1.6 - 2020-11-24
-
-- fixes incompatible return types error caused by PHPStorm's inability to resolve self (#2198)
-
-## 9.1.5 - 2020-11-22
-
-- fix custom file names for media library pro
-
-## 9.1.4 - 2020-11-19
-
-- automatically delete conversion jobs for deleted models (#2191)
-
-## 9.1.3 - 2020-11-12
-
-- improve optimizer defaults
-
-## 9.1.2 - 2020-11-11
-
-- add `original_url` to `MediaCollection`.
-
-## 9.1.1 - 2020-11-05
-
-- allow media collection to work with media library pro
-
-## 9.1.0 - 2020-11-04
-
-- allow image generators to accept config (#2156)
-
-## 9.0.1 - 2020-10-30
-
-- do not enable vapor uploads by default
-
-## 9.0.0 - 2020-10-30
-
-- add support for [Media Library Pro](https://medialibrary.pro)
-- names of the generated conversions will now be put in a dedicated `generated_conversions` on media
-- responsive image files can now be named using the `file_namer` key in the `media-library` config file (#2114)
-
-## 8.10.1 - 2020-10-05
-
-- add `queue_conversions_by_default` to config file
-
-## 8.9.3 - 2020-10-03
-
-- fix responsive images
-
-## 8.9.2 - 2020-10-02
-
-- improve responsive image inline script (#2032)
-
-## 8.9.1 - 2020-10-02
-
-- missing $loadingAttributeValue test in image view (#2082)
-
-## 8.9.0 - 2020-09-30
-
-- add support to include `ResponsiveImages` based on condition (#2036)
-
-## 8.8.0 - 2020-09-30
-
-- allow to change the way the images are being downloaded (#2054)
-
-## 8.7.5 - 2020-09-30
-
-- fix for default lazy="auto" value (#2081)
-
-## 8.7.4 - 2020-09-30
-
-- fixed conversions when disk != conversions_disk (#2080)
-
-## 8.7.3 - 2020-09-28
-
-- fix file deletion problem (#2073)
-
-## 8.7.2 - 2020-09-20
-
-- allow Guzzle 7 in dev-deps
-
-## 8.7.1 - 2020-09-08
-
-- add support for Laravel 8
-
-## 8.7.0 - 2020-09-04
-
-- add `toMediaLibrary`
-
-## 8.6.0 - 2020-08-25
-
-- add `useZipOptions`
-
-## 8.5.2 - 2020-08-25
-
-- fix for custom zip path (#2016)
-
-## 8.5.1 - 2020-08-24
-
-- keep sizes 1px if width is 0px (#1993)
-
-## 8.5.0 - 2020-08-06
-
-- add method to get registered media collections (#1976)
-
-## 8.4.1 - 2020-08-03
-
-- add `addMediaFromString`
-
-## 8.4.0 - 2020-08-03
-
-- add `addFromString`
-
-## 8.3.3 - 2020-06-30
-
-- fix responsive image urls when conversions are stored on different disk. (#1944)
-
-## 8.3.2 - 2020-06-22
-
-- report an error when it can't delete a directory (#1938)
-
-## 8.3.1 - 2020-06-22
-
-- improve handling of file names with special characters (#1937)
-
-
-## 8.3.0 - 2020-06-11
-
-- added `Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection`
-
-## 8.2.9 - 2020-06-08
-
-- changed `freads` to `fgets`  as per issue #812 (#1909)
-
-## 8.2.8 - 2020-05-16
-
-- when generating responsive images the quallity option of the original will be used (#1881)
-
-## 8.2.7 - 2020-05-12
-
-- Unset loaded 'media' relation during updateMedia() (#1878)
-
-## 8.2.6 - 2020-05-10
-
-- revert slash because of Vapor errors (#1869)
-
-## 8.2.5 - 2020-05-07
-
-- set the media table name explicitly to `media` to avoid failure caused by doctrine/inflictor now using `medias` as the plural
-
-## 8.2.4 - 2020-05-01
-
-- fix for when using custom model (#1857)
-
-## 8.2.3 - 2020-04-29
-
-- fixed duplicated path prefix for temporary urls (#1853)
-
-## 8.2.2 - 2020-04-29
-
-- fixed duplicated `/` in paths (#1854)
-
-## 8.2.1 - 2020-04-20
-
-- do not allow local files to be used in `addMediaFromUrl`
-
-## 8.2.0 - 2020-04-14
-
-- add page number support for Pdf image generator (#1829)
-
-## 8.1.0 - 2020-04-07
-
-- add support for `zip_filename_prefix` in custom properties
-
-## 8.0.8 - 2020-04-02
-
-- allow ZipStream 2.0 (#1812)
-
-## 8.0.7 - 2020-03-03
-
-- solve error when using flysystem-cached-adapter (#1803)
-
-## 8.0.6 - 2020-03-24
-
-- fix comment in config file
-
-## 8.0.5 - 2020-03-24
-
-- Use `float` for `extractVideoFrameAtSecond` (#1794)
-
-## 8.0.4 - 2020-03-24
-
-- update php-ffmpeg to ^0.15
-
-## 8.0.3 - 2020-03-18
-
-- add callable filter support to `getFirstMedia()` (#1781)
-
-## 8.0.1 - 2020-03-11
-
-- set conversion disk when adding media from remote (#1764)
-
-## 8.0.0 - 2020-03-09
-
-- added `uuid` on `media` table
-- an empty string is now a proper collection name. `getMedia('')` will not return media from the default collection anymore (#1697).
-- add the ability to store conversions on a separate disk
-- simplify URL generation. You can now just use the `root` and `url` properties on a configured disk
-- spatie/pdf-to-image is now a suggestion dependency, removing the need for always having to install ext-imagick
-- added `shouldMatchBothExtensionsAndMimeTypes` to `Spatie\MediaLibrary\ImageGenerators\BaseGenerator`
-- added progress bar on the clean command (#1623)
-- the `UrlGenerator` interface now contains all required methods (#1656)
-- use PHP 7.4 features where possible
-- added support for the `loading` attribute (#1667)
-- conversion files can now be named using the `conversion_file_namer` key in the `media-library` config file (#1636)
-- improved naming of classes and namespaces.
-
-To learn how to upgrade, take a look in UPGRADING.md
-
 ## 7.20.0 - 2021-05-26
 
 - add support for PHP 8
 
+## 7.19.5 - 2020-11-04
+
+- add support for Laravel 8
+
 ## 7.19.3 - 2020-03-09
 
 - fix responsive images extension (#1752)
+- use native file copy (#1758)
 
 ## 7.19.2 - 2020-03-04
 
@@ -660,7 +333,7 @@ To learn how to upgrade, take a look in UPGRADING.md
 
 - added `move` and `copy` methods on `Media`
 
-- file names will be lowercased when adding them to the media library
+- file names will be lowercased when adding them to the medialibrary
 - the names of converted images will now start with the name of the original file
 
 - dropped support for soft deletes
@@ -724,7 +397,7 @@ To learn how to upgrade, take a look in UPGRADING.md
 
 ## 6.5.0 - 2017-10-24
 
-- add `only-missing` and `only` options to the `media-library:regenerate` command
+- add `only-missing` and `only` options to the `medialibrary:regenerate` command
 
 ## 6.4.2 - 2017-10-20
 
@@ -899,7 +572,7 @@ To learn how to upgrade, take a look in UPGRADING.md
 - remove `toCollection` and `toCollectionOnDisk` and `toMediaLibraryOnDisk`
 - replace dependency on `spatie/laravel-glide` by `spatie/image`
 - mime types will now be stored in the database so they can be queried even if files are stored on external filesystems
-- rename `Spatie\MediaLibraryFilesystemInterface` to `Spatie\MediaLibrary\Filesystem\Filesystem`
+- rename `Spatie\MedialibraryFilesystemInterface` to `Spatie\Medialibrary\Filesystem\Filesystem`
 - remove `withCustomProperties`, `getNestedCustomProperty`, `setNestedCustomProperty`, `forgetNestedCustomProperty` and `hasNestedCustomProperty`
 - drop support for Lumen and anything below Laravel 5.4
 - clean up all classes
@@ -988,8 +661,8 @@ To learn how to upgrade, take a look in UPGRADING.md
 
 ## 4.5.0 - 2016-07-09
 
-- added `media-library:clean` command
-- the `media-library:regenerate` will continue regenerating files even if a primary media file is missing
+- added `medialibrary:clean` command
+- the `medialibrary:regenerate` will continue regenerating files even if a primary media file is missing
 
 ## 4.4.1 - 2016-07-08
 - Fix regeneration command (see #260). It'll now properly regenerate files for all passed media id's
@@ -1039,7 +712,7 @@ To learn how to upgrade, take a look in UPGRADING.md
 - The `regenerate`-command now accepts an `ids`-option
 
 ## 3.15.0
-- Added `media-library:clear` command
+- Added `medialibrary:clear` command
 
 ## 3.14.1
 - Make migrations compatible with mysql's strict mode
@@ -1192,7 +865,7 @@ model_id and model_type are nullable in your database.
 - Fixed: use FQCN for facades instead of using the aliases
 
 ## 2.2.1
-- Fixed an issue where too many queries were executed
+- Fixed an issue where too much queries were executed
 
 ## 2.2.0
 - Added `hasMediaWithoutConversions`-interface
@@ -1239,7 +912,7 @@ This version is a complete rewrite. Though there are lots of breaking changes mo
 - Bugfix: make compatible with Laravel 5.1
 
 ## 1.5.5
-- Bugfix: Renamed the boot method of MediaLibraryModeltrait so it plays nice with the boot method of
+- Bugfix: Renamed the boot method of MedialibraryModeltrait so it plays nice with the boot method of
 other traits and the base model.
 
 ## 1.5.4
@@ -1257,13 +930,13 @@ other traits and the base model.
 - Added `getImageProfileProperties()`to interface
 
 ## 1.1.3
-- Create the media library directory if it does not exist
+- Create the medialibrary directory if it does not exist
 
 ## 1.1.2
 - Files without extensions are now allowed
 
 ## 1.1.1
-- Added check to make sure the file that must be added to the media library exists
+- Added check to make sure the file that must be added to the medialibrary exists
 
 ## 1.1.0
 - Added option to specify the name of the queue that should be used to create image manipulations

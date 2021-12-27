@@ -2,16 +2,18 @@
 
 namespace Spatie\MediaLibrary\ResponsiveImages;
 
-use Spatie\MediaLibrary\MediaCollections\Filesystem;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\Support\PathGenerator\PathGeneratorFactory;
-use Spatie\MediaLibrary\Support\UrlGenerator\UrlGeneratorFactory;
+use Spatie\MediaLibrary\Filesystem\Filesystem;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\PathGenerator\PathGeneratorFactory;
+use Spatie\MediaLibrary\UrlGenerator\UrlGeneratorFactory;
 
 class ResponsiveImage
 {
-    public string $fileName = '';
+    /** @var string */
+    public $fileName = '';
 
-    public Media $media;
+    /** @var \Spatie\MediaLibrary\Models\Media */
+    public $media;
 
     public static function register(Media $media, $fileName, $conversionName)
     {
@@ -44,13 +46,7 @@ class ResponsiveImage
 
     public function url(): string
     {
-        $conversionName = '';
-
-        if ($this->generatedFor() !== 'media_library_original') {
-            $conversionName = $this->generatedFor();
-        }
-
-        $urlGenerator = UrlGeneratorFactory::createForMedia($this->media, $conversionName);
+        $urlGenerator = UrlGeneratorFactory::createForMedia($this->media);
 
         return $urlGenerator->getResponsiveImagesDirectoryUrl().rawurlencode($this->fileName);
     }
@@ -91,9 +87,7 @@ class ResponsiveImage
 
     protected function stringBetween(string $subject, string $startCharacter, string $endCharacter): string
     {
-        $lastPos = strrpos($subject, $startCharacter);
-
-        $between = substr($subject, $lastPos);
+        $between = strstr($subject, $startCharacter);
 
         $between = str_replace('___', '', $between);
 
@@ -102,7 +96,7 @@ class ResponsiveImage
         return $between;
     }
 
-    public function delete(): self
+    public function delete()
     {
         $pathGenerator = PathGeneratorFactory::create();
 

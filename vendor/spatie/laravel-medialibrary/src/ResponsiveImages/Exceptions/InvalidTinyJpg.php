@@ -3,16 +3,16 @@
 namespace Spatie\MediaLibrary\ResponsiveImages\Exceptions;
 
 use Exception;
-use Spatie\MediaLibrary\Support\File;
+use Spatie\MediaLibrary\Helpers\File;
 
 class InvalidTinyJpg extends Exception
 {
-    public static function doesNotExist(string $tinyImageDestinationPath): self
+    public static function doesNotExist(string $tinyImageDestinationPath)
     {
         return new static("The expected tiny jpg at `{$tinyImageDestinationPath}` does not exist");
     }
 
-    public static function hasWrongMimeType(string $tinyImageDestinationPath): self
+    public static function hasWrongMimeType(string $tinyImageDestinationPath)
     {
         $foundMimeType = File::getMimeType($tinyImageDestinationPath);
 
