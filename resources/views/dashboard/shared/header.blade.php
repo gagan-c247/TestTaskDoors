@@ -24,7 +24,11 @@
                         @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
                             <img class="c-avatar-img" src="{{ url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
                         @else
-                            <img class="c-avatar-img" src="{{ auth()->guard('web')->user()->getFirstMediaUrl('image', 'thumb') ??  url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                            @if(auth()->guard('web')->user()->getFirstMediaUrl('image'))
+                                <img class="c-avatar-img" src="{{ auth()->guard('web')->user()->getFirstMediaUrl('image') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                            @else 
+                                <img class="c-avatar-img" src="{{  url('/assets/img/user.png') }}" alt="user@email.com"> <span class="d-flex align-items-center"> <i class="fa fa-caret-down ml-1" aria-hidden="true"></i></span>
+                            @endif
                         @endif
                     </div>
                 </a>

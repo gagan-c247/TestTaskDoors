@@ -22,7 +22,7 @@
 /storage/*.key
 /public/public
 /vendor
-.env
+# .env
 .env.backup
 .phpunit.result.cache
 Homestead.json

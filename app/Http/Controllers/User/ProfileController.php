@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserRegistrationUpdateRequest;
+use DB;
 
 class ProfileController extends Controller{
 
@@ -28,7 +29,8 @@ class ProfileController extends Controller{
 
         if($request->hasFile('image') && $request->file('image')->isValid()){
             // $user->media()->delete();
-            $user->clearMediaCollection('image');
+            DB::table('media')->where('model_id',$id)->delete();
+            // $user->clearMediaCollection('image');
             $user->addMediaFromRequest('image')->toMediaCollection('image');
         }
 
