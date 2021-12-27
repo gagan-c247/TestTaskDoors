@@ -45,8 +45,24 @@ label.error{
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" name="email" id="email" value="{{ $user->email ?? old('email') }}" class="form-control" placeholder="">
+                                        <input type="text" name="email" id="email" value="{{ $user->email ?? old('email') }}" class="form-control" placeholder="" readonly>
                                         @error('email')
+                                            <div class="text text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>{{__('Role')}}<span class="text-danger">*</span></label>
+                                        <select name="role" class="form-control">
+                                            <option selected disabled>{{ __('Select Role') }}</option>
+                                            @if ( isset($roles) )
+                                                @foreach($roles as $role)
+                                                    <option value="{{ $role->name }}" {{ isset($user['roles'][0]['name']) && $role->name == $user['roles'][0]['name'] ? 'selected' :'' }}>{{ $role->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('role')
                                             <div class="text text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

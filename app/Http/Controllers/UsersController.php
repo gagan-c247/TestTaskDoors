@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Http\Requests\{UserRegistrationRequest, UserRegistrationUpdateRequest};
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UsersController extends Controller
 {
@@ -51,7 +53,8 @@ class UsersController extends Controller
     }
     
     public function create(){
-        return view('dashboard.admin.userAdd');
+        $roles = Role::select('name')->where('guard_name','!=','admin')->get();
+        return view('dashboard.admin.userAdd',compact('roles'));
     }
 
     public function store(UserRegistrationRequest $request){
@@ -62,7 +65,7 @@ class UsersController extends Controller
         $user->status = 1;
         $user->password = Hash::make($request->password);
         $user->save();
-        $user->assignRole('user');
+        $user->assignRole($request['role']);
 
         $request->session()->flash('success', 'User has been registered successfully.');
         if(auth()->guard('admin')->check()){
@@ -91,8 +94,9 @@ class UsersController extends Controller
      */
     public function edit($id){
         if($id > 0){
-            $user = User::find($id);
-            return view('dashboard.admin.userEditForm', compact('user'));
+            $user = User::with('roles')->find($id);
+            $roles = Role::select('name')->where('guard_name','!=','admin')->get();
+            return view('dashboard.admin.userEditForm', compact('user','roles'));
         }
     }
 
@@ -105,14 +109,14 @@ class UsersController extends Controller
      */
     public function update(UserRegistrationUpdateRequest $request, $id){
         /* ========== User Table ========== */
-        $user = User::find($id);
+        $user = User::with('roles')->find($id);
         $user->name = $request->name;
-        $user->email = $request->email;
+        // $user->email = $request->email;
         $user->update();
-        // if(Auth::guard('web')->check()){
-        //     $request->session()->flash('success', 'Your profile has been updated successfully.');
-        //     return redirect()->back();
-        // }   
+        if ( $user['roles'] != '' && $user['roles'][0]['name'] != $request->role ) {
+            $user->removeRole($user['roles'][0]['name']);
+            $user->assignRole($request->role);
+        }
         $request->session()->flash('success', 'User profile updated successfully.');
         if(auth()->guard('admin')->check()){
             return redirect()->route('users.index');

@@ -67,6 +67,22 @@ label.error{
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>{{__('Role')}}<span class="text-danger">*</span></label>
+                                        <select name="role" class="form-control">
+                                            <option selected disabled>{{__('Select Role')}}</option>
+                                            @if ( isset($roles) )
+                                                @foreach($roles as $role)
+                                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('role')
+                                            <div class="text text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-right">
                                 <button name="register" class="btn addbtn" type="submit">{{ __('Register') }}</button>
