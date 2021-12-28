@@ -12,8 +12,6 @@ use Laravel\Cashier\Billable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 // use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
 
 class User extends Authenticatable implements HasMedia
 {
