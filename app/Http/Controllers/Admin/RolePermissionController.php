@@ -54,7 +54,6 @@ class RolePermissionController extends Controller
 
     public function update(Request $request, $id)
     {
-        // return $request;
         $role = Role::find($id);
         // if($request->role != ''){
         //     $role->name = $request->input('role');

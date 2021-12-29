@@ -23,7 +23,7 @@ class UsersController extends Controller
         $this->middleware('permission:user-index', ['only'=>['index']]);   
         $this->middleware('permission:user-create', ['only'=>['create','store']]);
         $this->middleware('permission:user-edit', ['only'=>['edit', 'update']]);
-        $this->middleware('permission:user-destroy', ['only'=>['destory']]);
+        $this->middleware('permission:user-destroy', ['only'=>['destroy']]);
         $this->middleware('permission:user-proxy',  ['only'=>['proxyLogin']]);
     }
 
@@ -147,15 +147,15 @@ class UsersController extends Controller
         }
     }
 
-    public function status($id){
-        $userStatus =  User::find($id)->status;
-        $data = User::where('id', $id)->first();
-        if($userStatus == '1'){
-            User::where('id', $id)->update(['status' => '0']);
-            $userStatus =  User::find($id)->status;
+    public function status($id) {
+        $user = User::find($id);
+        if($user->status == '1') {
+            $user->status = '0';
+            $user->update();
             return response()->json(['status'=>'success','message'=>'User Rejected','type'=>'deactivate']);
-        }else{
-            User::where('id', $id)->update(['status' => '1']);
+        } else {
+            $user->status = '1';
+            $user->update();
             return response()->json(['status'=>'success','message'=>'User Approved','type'=>'activate']);
         }
     }

@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Log;
 class DashboardController extends Controller{
     
     public function adminDashboard(){
-        $businessOwners = User::where('menuroles', 'user')->count();
-        $businessOwnersActive = User::where('menuroles', 'user')->where('status', '1')->count();
+        $users = User::get();
+        $businessOwners = $users->where('menuroles', 'user')->count();
+        $businessOwnersActive = $users->where('menuroles', 'user')->where('status', '1')->count();
         return view('dashboard.homepage', compact('businessOwners', 'businessOwnersActive'));  
     }
 

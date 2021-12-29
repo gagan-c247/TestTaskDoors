@@ -15,8 +15,7 @@ use DB;
 class ProfileController extends Controller{
 
     public function profile(){
-        $id = auth()->id();
-        $user = User::find($id);
+        $user = User::find(auth()->id());
         return view('dashboard.user.owner-profile.index', compact('user'));
     }
    
@@ -48,17 +47,15 @@ class ProfileController extends Controller{
             'password'     => 'required|string|min:8|confirmed',
         ]);
 
-        $password =  User::find(Auth::id())->password;
-        $check = Hash::check($request->old_password, $password);
+        $user =  User::find(Auth::id());
+        $check = Hash::check($request->old_password, $user->password);
 
-        if($check){
-            $user = User::find(Auth::id());
+        if($check) {
             $user->password = Hash::make($request->password);
             $user->update();
-
             $request->session()->flash('success', 'Password Changed Successfully.');
             return redirect()->route('user.changePassword');
-        }else{
+        } else {
             $request->session()->flash('danger', 'Old Password does not match.');
             return redirect()->route('user.changePassword'); 
         }
