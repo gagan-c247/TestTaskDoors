@@ -26,7 +26,7 @@
     <link href="{{ asset('css/custom-admin.css') }}" rel="stylesheet">
 
     @if(Auth::guard('web')->check() && request()->segment(1) != 'admin')
-    <link href="{{ asset('css/custom-user.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/custom-user.css') }}" rel="stylesheet">
     @endif
 
     @yield('css')
