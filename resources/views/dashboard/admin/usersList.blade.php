@@ -147,7 +147,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data){
-                    alert(data.type)
                     if(data.type == 'deactivate'){
                         statusHtml.html(' ');
                         

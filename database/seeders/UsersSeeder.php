@@ -61,14 +61,14 @@ class UsersSeeder extends Seeder{
 
 
           /*  insert users   */
-        $user = User::create([ 
-            'name' => 'user',
-            'email' => 'user@user.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('123456789'), 
-            'remember_token' => Str::random(10),
-            'menuroles' => 'user'
-        ]);
-        $user->assignRole('user');
+            $user = User::create([ 
+                'name' => 'user',
+                'email' => 'user@user.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456789'), 
+                'remember_token' => Str::random(10),
+                'menuroles' => 'user'
+            ]);
+            $user->assignRole('user');
     }
 }
