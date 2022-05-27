@@ -43,6 +43,9 @@
 
         /* =========== Role Permission =============*/
         Route::resource('/role','Admin\RolePermissionController');
+         
+        /* =========== Attribute Management =============*/
+        Route::resource('/attribute','Admin\AttributeController');
     });
     
     /* ============================== USER ROUTE ============================== */
