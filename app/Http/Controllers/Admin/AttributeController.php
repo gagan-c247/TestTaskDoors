@@ -36,7 +36,6 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        return 'ss';
         $data['name'] = $request['name'];
         $data['type'] = $request['type'];
         $attribute = Attribute::create($data);
@@ -96,16 +95,19 @@ class AttributeController extends Controller
         $data['name'] = $request['name'];
         $data['type'] = $request['type'];
         $attribute = Attribute::where('id',$id)->update($data);
+        if($request['remove-id']) {
+            $deleteRows =  explode(',',$request['remove-id']);
+            AttributeDetail::whereIn('id',$deleteRows)->delete();
+        }
+        if($data['type'] == 'input') {
+            AttributeDetail::where('attribute_id',$id)->delete();
+        }
         for($i =0; $i < $request['total_row']; $i++) {
             $table['title'] = $request['title_'.($i+1)] ?? $request['titleNew_'.($i+1)];
             $table['price'] = $request['price_'.($i+1)] ?? $request['priceNew_'.($i+1)]; 
             $table['attribute_id'] = $id;
             $j = 0;
             $img = [];
-            if($request['remove-id']) {
-               $deleteRows =  explode(',',$request['remove-id']);
-               AttributeDetail::whereIn('id',$deleteRows)->delete();
-            }
             if($request->has('file_'.($i+1))){
                 foreach($request['file_'.($i+1)] as  $file) {
                     $name = time() .'type-'.$j.$i. '.' . $file->getClientOriginalExtension();
@@ -131,6 +133,7 @@ class AttributeController extends Controller
                 AttributeDetail::create($table);
             }
         }
+        session()->flash('success','Attribute Updated Successfully!');
         return back();
     }
 
