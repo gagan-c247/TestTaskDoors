@@ -76,7 +76,12 @@ $(document).on('click','.add',function(){
   row += '</div>';
   row += '<div class="col-md-3">';
   row += '  <label for="">Price</label>';
-  row += '  <input type="text" class="form-control attribute-price" name="priceNew_'+id+'"><span class="attribute-price-error text-danger"></span>';
+  row += '  <div div class="input-group">';
+  row += '       <div class="input-group-prepend">';
+  row += '          <span class="input-group-text" id="basic-addon1">$</span>';
+  row += '      </div>';
+  row += '      <input type="text" class="form-control attribute-price" name="priceNew_'+id+'"><span class="attribute-price-error text-danger"></span>';
+  row += '  </div>';
   row += '</div>';
   row += '<div class="col-md-4">';
   row += '  <div class="uploaded-file-section upload__img-wrap">';
@@ -84,7 +89,7 @@ $(document).on('click','.add',function(){
   row += '   </div> <span class="attribute-image-error text-danger"></span>';
   row += '</div>';
   row += '<div class="col-md-2 mt-4">';
-  row += '   <a href="javascript:;" class="btn btn-danger remove-row" data-toggle="tooltip" title="Add">';
+  row += '   <a href="javascript:;" class="btn btn-danger remove-row" data-toggle="tooltip" title="Remove">';
   row += '      <i class="fa fa-minus"></i>';
   row += '  </a>';
   row += '  <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">';
@@ -94,6 +99,7 @@ $(document).on('click','.add',function(){
   row += ' </div>';
   row += '</div>';
   $('.row-data').append(row);
+  $('[data-toggle="tooltip"]').tooltip()
 });
 
 $(document).on('click','.remove-row',function(){
@@ -108,6 +114,8 @@ $(document).on('click','.remove-row',function(){
   $(this).closest('.row').remove();
 })
 
+
+// VALIDATION PART
 $(document).on('click','.submit-button',function() {
   var flag = true;
   if($('.name').val()){
