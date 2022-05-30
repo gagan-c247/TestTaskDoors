@@ -6,13 +6,11 @@
 </div>
 <ul class="c-sidebar-nav ps ps--active-y">
     <li class="c-sidebar-nav-item">
-
         @if(auth()->guard('admin')->check() && request()->segment(1) == 'admin')
             <a class="c-sidebar-nav-link {{ request()->segment(1) == 'admin' && request()->segment(2) == 'dashboard' ? 'c-active' : '' }}" href="{{ auth()->guard('admin')->check() && request()->segment(1) == 'admin' ? url('/admin') : url('/dashboard')}}"><i class="cil-speedometer c-sidebar-nav-icon"></i>Dashboard </a>
         @else
             <a class="c-sidebar-nav-link {{ request()->is('/') ? 'c-active' : '' }}" href="{{ auth()->guard('admin')->check() && request()->segment(1) == 'admin' ? url('/admin') : url('/dashboard')}}"><i class="cil-speedometer c-sidebar-nav-icon"></i>Dashboard </a>
         @endif
-
     </li>
     {{-- @can('user-section') --}}
     @can('user-section')
@@ -51,13 +49,16 @@
             </li>
         @endcan
     @endcan
-
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link {{ request()->is('/admin/attribute') ? 'c-active' : '' }}" href="{{url('/admin/attribute')}}">
             <i class="cil-applications c-sidebar-nav-icon"></i> Attribute Management
         </a>
     </li>
-
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link {{ request()->is('/admin/configurator') ? 'c-active' : '' }}" href="{{url('/admin/configurator')}}">
+            <i class="cil-applications c-sidebar-nav-icon"></i> Configurator Management
+        </a>
+    </li>
     <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
         <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
     </div>

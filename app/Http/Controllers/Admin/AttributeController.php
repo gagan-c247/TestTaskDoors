@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Attribute,AttributeDetail};
-class AttributeController extends Controller
-{
+
+class AttributeController extends Controller{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Attribute $attribute)
-    {
+    public function index(Attribute $attribute){
         $allAttribute = Attribute::paginate(10);
         return view('dashboard.admin.attribute.index', compact('attribute','allAttribute'));
     }
