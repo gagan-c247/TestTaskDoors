@@ -16,5 +16,4 @@
 	</section>
 @endsection
 @section('javascript')
-
 @endsection
