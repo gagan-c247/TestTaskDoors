@@ -149,7 +149,7 @@
                             <thead>
                                 <tr>
                                     <th>S.No.</th>
-                                    <th>title</th>
+                                    <th class="text-left">Title</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -157,7 +157,7 @@
                                 @forelse($allAttribute as $key =>  $attribute) 
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td>{{$attribute->name ?? ''}}</td>
+                                        <td class="text-left">{{$attribute->name ?? ''}}</td>
                                         <td>
                                             <a href="{{route('attribute.edit',$attribute->id)}}" class="btn" data-toggle="tooltip" title="Edit {{$attribute['name'] ?? ''}}">
                                                 <i class="fa fa-edit"></i>
