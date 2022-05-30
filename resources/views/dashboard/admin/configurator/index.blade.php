@@ -61,6 +61,7 @@
                                     <td class="text-center">1</td>
                                     <td>Base Option</td>
                                     <td>
+                                        @if(isset($allConfig) && $allConfig != [])
                                         @forelse($allAttributes as $attr)
                                             @forelse(explode(',', $allConfig->base_option) as $conf_base)
                                                 @if($attr->id == $conf_base)
@@ -72,12 +73,16 @@
                                         @empty
 
                                         @endforelse
+                                        @else
+                                            {{'NA'}}
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-center">2</td>
                                     <td>Door</td>
                                     <td>
+                                        @if(isset($allConfig) && $allConfig != [])
                                         @forelse($allAttributes as $attr)
                                             @forelse(explode(',', $allConfig->door) as $conf_door)
                                                 @if($attr->id == $conf_door)
@@ -89,12 +94,16 @@
                                         @empty
 
                                         @endforelse
+                                        @else
+                                            {{'NA'}}
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-center">3</td>
                                     <td>Face</td>
                                     <td>
+                                        @if(isset($allConfig) && $allConfig != [])
                                         @forelse($allAttributes as $attr)
                                             @forelse(explode(',', $allConfig->face) as $conf_face)
                                                 @if($attr->id == $conf_face)
@@ -106,12 +115,16 @@
                                         @empty
 
                                         @endforelse
+                                        @else
+                                            {{'NA'}}
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-center">4</td>
                                     <td>Hardware's</td>
                                     <td>
+                                        @if(isset($allConfig) && $allConfig != [])
                                         @forelse($allAttributes as $attr)
                                             @forelse(explode(',', $allConfig->hardware) as $conf_hardware)
                                                 @if($attr->id == $conf_hardware)
@@ -123,6 +136,9 @@
                                         @empty
 
                                         @endforelse
+                                        @else
+                                            {{'NA'}}
+                                        @endif
                                     </td>
                                 </tr>
                             </tbody>
