@@ -46,6 +46,9 @@
          
         /* =========== Attribute Management =============*/
         Route::resource('/attribute','Admin\AttributeController');
+
+        /* =========== Configurator Management =============*/
+        Route::resource('/configurator','Admin\ConfiguratorController');
     });
     
     /* ============================== USER ROUTE ============================== */
