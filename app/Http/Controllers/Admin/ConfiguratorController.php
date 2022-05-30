@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Configurator;
+use App\Models\{Configurator, Attribute};
 use App\Http\Requests\ConfiguratorRequest;
 
 class ConfiguratorController extends Controller{
@@ -14,8 +14,9 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $allConfigurator = Configurator::orderBy('id', 'DESC')->paginate(20);
-        return view('dashboard.admin.configurator.index', compact('allConfigurator'));
+        $allConfig = Configurator::first();
+        $allAttributes = Attribute::with('attributeDetails')->get();
+        return view('dashboard.admin.configurator.index', compact('allConfig', 'allAttributes'));
     }
 
     /**
@@ -24,7 +25,9 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('dashboard.admin.configurator.create');
+        $allConfig = Configurator::first();
+        $allAttributes = Attribute::with('attributeDetails')->get();
+        return view('dashboard.admin.configurator.create', compact('allConfig', 'allAttributes'));
     }
 
     /**
@@ -35,14 +38,20 @@ class ConfiguratorController extends Controller{
      */
     public function store(ConfiguratorRequest $request){
         $data = [
-            'base_option' => $request->base_option,
-            'door' => $request->door,
-            'face' => $request->face,
-            'hardware' => $request->hardware,
+            'base_option' => implode(',', $request->base_option),
+            'door' => implode(',', $request->door),
+            'face' => implode(',', $request->face),
+            'hardware' => implode(',', $request->hardware),
         ];
 
-        Configurator::create($data);
-        session()->flash('success','Configurator Inserted Successfully!');
+        $config = Configurator::first();
+        if($config){
+            $config->update($data);
+            session()->flash('success','Configurator Updated Successfully!');
+        }else{
+            Configurator::create($data);
+            session()->flash('success','Configurator Inserted Successfully!');
+        }
         return redirect('/admin/configurator');
     }
 
@@ -52,9 +61,8 @@ class ConfiguratorController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+
     }
 
     /**
@@ -63,9 +71,8 @@ class ConfiguratorController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+
     }
 
     /**
@@ -75,9 +82,8 @@ class ConfiguratorController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+
     }
 
     /**
@@ -86,8 +92,7 @@ class ConfiguratorController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+
     }
 }

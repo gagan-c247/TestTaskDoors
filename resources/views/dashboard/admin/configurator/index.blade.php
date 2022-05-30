@@ -19,7 +19,7 @@
                                 <h5 class="title">{{ __('Configurator') }}</h5>
                             </div>
                             <div class="col-md-4 col-7 text-right">
-                                <a href="{{ url('/admin/configurator/create') }}" class="btn addbtn ml-0"><span class="mr-1"><i class="fa fa-plus-circle" aria-hidden="true"></i></span> Add</a>
+                                <a href="{{ url('/admin/configurator/create') }}" class="btn addbtn ml-0">Setting</a>
                             </div>
                         </div>
                         {{--<form method="GET" action="{{auth()->guard('admin')->check() && Request::segment(1) == 'admin' ? url('/admin/configurator') : url('/configurator') }}">
@@ -48,73 +48,85 @@
                         </form>--}}
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-striped db-table text-center">
+                        <table class="table table-striped db-table">
                             <thead>
                                 <tr>
                                     <th class="text-center">S.No.</th>
-                                    <th>Title</th>
-                                    <th>SKU</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Created At</th>
-                                    <th class="text-center">Action</th>
+                                    <th>Section</th>
+                                    <th>Selection of Attributes</th>
                                 </tr>
                             </thead>
                             <tbody id="searchDataTable">
-                                {{--@forelse($allProduct as $key => $product)
                                 <tr>
-                                    <td class="text-center">{{ $key+1 ?? '' }}</td>
-                                    <td>{{ $product->title ?? '' }}</td>
-                                    <td>{{ $product->sku ?? '' }}</td>
-                                    <td><b>$</b>{{ number_format($product->price ?? '') }}.00</td>
+                                    <td class="text-center">1</td>
+                                    <td>Base Option</td>
                                     <td>
-                                        {{ $product->quantity ?? '' }}
-                                        @if($product->unit == 1)
-                                            {{' KG'}}
-                                        @else
-                                            {{' Pounds'}}
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($product->status == '0')
-                                            <a href="javascript:;" class="status" data-id="{{$product->id}}" data-name="unpublish"><span class="badge badge-pill badge-danger btn-status">Deactive</span></a>
-                                        @else
-                                            <a href="javascript:;" class="status" data-id="{{$product->id}}" data-name="publish"><span class="badge badge-pill badge-success btn-status">Active</span></a>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">{{ $product->created_at->toDateString() ?? '' }}</td>
-                                    <td class="action-icon">
-                                        <div class="icon">
-                                            <a href="{{ url('/admin/product/' . $product->id . '/edit') }}" class="" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        </div>
-                                        <div class="icon">
-                                            <form action="{{ route('product.destroy', $product->id ) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <a href="javascript:;" class="delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
-                                                <button type="submit" class="deleteSubmit d-none"><i class="fa fa-trash"></i></button>
-                                            </form>
-                                        </div>
+                                        @forelse($allAttributes as $attr)
+                                            @forelse(explode(',', $allConfig->base_option) as $conf_base)
+                                                @if($attr->id == $conf_base)
+                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
+                                                @endif
+                                            @empty
+
+                                            @endforelse
+                                        @empty
+
+                                        @endforelse
                                     </td>
                                 </tr>
-                                @empty
                                 <tr>
-                                    <td colspan="13" class="text-center no-product">
-                                        <div class="text-center mb-3">
-                                            <img src="{{ asset('images/no-product1.png') }}" alt="icon">
-                                            @if(auth()->guard('admin')->check() && Request::segment(1) == 'admin')
-                                                <h2 class="title-medium pb-0">No Product Found.</h2>
-                                            @endif
-                                        </div>
+                                    <td class="text-center">2</td>
+                                    <td>Door</td>
+                                    <td>
+                                        @forelse($allAttributes as $attr)
+                                            @forelse(explode(',', $allConfig->door) as $conf_door)
+                                                @if($attr->id == $conf_door)
+                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
+                                                @endif
+                                            @empty
+
+                                            @endforelse
+                                        @empty
+
+                                        @endforelse
                                     </td>
                                 </tr>
-                                @endforelse--}}
+                                <tr>
+                                    <td class="text-center">3</td>
+                                    <td>Face</td>
+                                    <td>
+                                        @forelse($allAttributes as $attr)
+                                            @forelse(explode(',', $allConfig->face) as $conf_face)
+                                                @if($attr->id == $conf_face)
+                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
+                                                @endif
+                                            @empty
+
+                                            @endforelse
+                                        @empty
+
+                                        @endforelse
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">4</td>
+                                    <td>Hardware's</td>
+                                    <td>
+                                        @forelse($allAttributes as $attr)
+                                            @forelse(explode(',', $allConfig->hardware) as $conf_hardware)
+                                                @if($attr->id == $conf_hardware)
+                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
+                                                @endif
+                                            @empty
+
+                                            @endforelse
+                                        @empty
+
+                                        @endforelse
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
-                        {{--@if($allProduct != [])
-                            {!! $allProduct->appends(request()->query())->links() !!}
-                        @endif--}}
                     </div>
                 </div>
             </div>
