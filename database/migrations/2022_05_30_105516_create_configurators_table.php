@@ -15,20 +15,10 @@ class CreateConfiguratorsTable extends Migration
     {
         Schema::create('configurators', function (Blueprint $table) {
             $table->id();
-            $table->string('series');
-            $table->string('product_type');
-            $table->string('door_opening_type');
-            $table->string('opening_option');
-            $table->string('standerd_size');
-            $table->string('ratting');
-            $table->string('core_material');
-            $table->string('agency');
-            $table->string('face_type');
-            $table->string('cut');
-            $table->string('grade');
-            $table->string('hardware_type');
-            $table->string('sub_category');
-            $table->string('hinge_height');
+            $table->string('base_option');
+            $table->string('door');
+            $table->string('face');
+            $table->string('hardware');
             $table->timestamps();
         });
     }

@@ -23,23 +23,10 @@ class ConfiguratorRequest extends FormRequest
      */
     public function rules(){
         return [
-            'series'            => 'required',
-            'product_type'      => 'required',
-            'door_opening_type' => 'required',
-            'opening_option'    => 'required',
-            'standerd_size'     => 'required',
-
-            'ratting'       => 'required',
-            'core_material' => 'required',
-            'agency'        => 'required',
-
-            'face_type' => 'required',
-            'cut'       => 'required',
-            'grade'     => 'required',
-            
-            'hardware_type' => 'required',
-            'sub_category'  => 'required',
-            'hinge_height'  => 'required',
+            'base_option' => 'required',
+            'door'        => 'required',
+            'face'        => 'required',
+            'hardware'    => 'required',
         ];
     }
 }

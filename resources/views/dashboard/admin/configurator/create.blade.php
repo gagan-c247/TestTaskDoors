@@ -1,314 +1,138 @@
 @extends('dashboard.base')
-@section('content')
+@section('css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
-label.error{
-    color: red;
-}
+    label.error {
+        color: red;
+    }
+    .select2-container--default.select2-container--focus .select2-selection--multiple,
+    .select2-container--default .select2-selection--multiple {
+        border: solid #e6e6e6 1px !important;
+    }
+    .select2-container--default.select2-container.select2 {
+        width: 100% !important;
+    }
+    label {
+        font-weight: 600;
+    }
 </style>
+@endsection
+@section('content')
 <div class="container-fluid">
-    <div class="wrapper">
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 col-7">
+                                <h5 class="card-title mb-0">Configurator Product</h5>
+                            </div>
+                            <div class="col-md-6 col-5">
+                                <div class="text-right">
+                                    <a href="{{url('/admin/configurator')}}" class="btn addbtn">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" id="configurator-form" action="{{route('configurator.store')}}" autocomplete="off" enctype="multipart/form-data">
+                            @csrf
+                            <div class="card">
+                                <div class="card-header"><strong>Configurator Detail</strong></div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Base Option<span class="text-danger">*</span></label>
+                                                <select name="base_option[]" class="form-control base-option" multiple="multiple">
+                                                    <option value="1">Value 1</option>
+                                                    <option value="2">Value 2</option>
+                                                    <option value="3">Value 3</option>
+                                                </select>
+                                                @error('base_option')
+                                                    <span class="text text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Door<span class="text-danger">*</span></label>
+                                                <select name="door[]" class="form-control door" multiple="multiple">
+                                                    <option value="1">Value 1</option>
+                                                    <option value="2">Value 2</option>
+                                                    <option value="3">Value 3</option>
+                                                </select>
+                                                @error('door')
+                                                    <span class="text text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Face<span class="text-danger">*</span></label>
+                                                <select name="face[]" class="form-control face" multiple="multiple">
+                                                    <option value="1">Value 1</option>
+                                                    <option value="2">Value 2</option>
+                                                    <option value="3">Value 3</option>
+                                                </select>
+                                                @error('face')
+                                                    <span class="text text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Hardware's<span class="text-danger">*</span></label>
+                                                <select name="hardware[]" class="form-control hardware" multiple="multiple">
+                                                    <option value="1">Value 1</option>
+                                                    <option value="2">Value 2</option>
+                                                    <option value="3">Value 3</option>
+                                                </select>
+                                                @error('hardware')
+                                                    <span class="text text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-right">
+                                <input type="submit" class="btn addbtn" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        @endif
-        <form action="{{route('configurator.store')}}" id="wizard" method="POST" autocomplete="off" enctype="multipart/form-data">
-            @csrf
-            {{-- Step 1 --}}
-            <h2></h2>
-            <section>
-                <div class="inner">
-                    <div class="form-content" >
-                        <div class="form-header">
-                            <h3 class="heading-medium">Base Option</h3>
-                        </div>
-                        <div class="row row-wrap">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Series<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="series" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('series')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Product Type<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="product_type" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('product_type')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Door Opening Type<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="door_opening_type" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('door_opening_type')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Opening Option<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="opening_option" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('opening_option')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Standerd Size<span class="text-danger">*</span></label>
-                                    <div class="radio sidebar-item">
-                                        <input type="radio" name="standerd_size" id="value1" value="1">
-                                        <label for="value1">Value 1</label>&nbsp;&nbsp;
-                                        <input type="radio" name="standerd_size" id="value2" value="2">
-                                        <label for="value2">Value 2</label>&nbsp;&nbsp;
-                                        <input type="radio" name="standerd_size" id="value3" value="3">
-                                        <label for="value3">Value 3</label>
-                                    </div>
-                                    @error('standerd_size')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{-- Step 2 --}}
-            <h2></h2>
-            <section>
-                <div class="inner">
-                    <div class="form-content select_location">
-                        <div class="form-header">
-                            <h3 class="heading-medium">Door</h3>
-                        </div>
-                        <div class="row row-wrap">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Ratting<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="ratting" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('ratting')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Core Material<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="core_material" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('core_material')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Agency<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="agency" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('agency')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{-- Step 3 --}}
-            <h2></h2>
-            <section>
-                <div class="inner">
-                    <div class="form-content">
-                        <div class="form-header">
-                            <h3 class="heading-medium">Face</h3>
-                        </div>
-                        <div class="row row-wrap">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Face Type<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="face_type" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('face_type')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Cut<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="cut" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('cut')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Grade<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="grade" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('grade')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{-- Step 4 --}}
-            <h2></h2>
-            <section>
-                <div class="inner">
-                    <div class="form-content">
-                        <div class="form-header">
-                            <h3 class="heading-medium">Hardware's</h3>
-                        </div>
-                        <div class="row row-wrap">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Hardware Type<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="hardware_type" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('hardware_type')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Sub Category<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="sub_category" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('sub_category')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Hinge Height<span class="text-danger">*</span></label>
-                                    <div class="custom-dropdown">
-                                        <select name="hinge_height" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="1">Value 1</option>
-                                            <option value="2">Value 2</option>
-                                            <option value="3">Value 3</option>
-                                        </select>
-                                        <i class="fa fa-caret-down down" aria-hidden="true"></i>
-                                    </div>
-                                    @error('hinge_height')
-                                        <span class="text text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <input type="submit" style="display:none" id="user_submit_button">  
-        </form>
+        </div>
     </div>
 </div>
 @endsection
 
 @section('javascript')
-<script src="{{ asset('assets/backend/configurator/configurator.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.base-option').select2({
+            allowClear: true,
+            placeholder: 'Select',
+        });
+
+        $('.door').select2({
+            allowClear: true,
+            placeholder: 'Select',
+        });
+
+        $('.face').select2({
+            allowClear: true,
+            placeholder: 'Select',
+        });
+
+        $('.hardware').select2({
+            allowClear: true,
+            placeholder: 'Select',
+        });
+    });
+</script>
 @endsection
