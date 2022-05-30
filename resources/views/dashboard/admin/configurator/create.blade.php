@@ -45,12 +45,12 @@
                                         <select name="base_option[]" class="form-control base-option" multiple="multiple">
                                             @forelse($allAttributes as $attr)
                                                 <option value="{{$attr->id}}" 
-                                                    @isset($allConfig['base_option'])
+                                                    @isset($allConfig->base_option)
                                                     @foreach(explode(',', $allConfig->base_option) as $conf_base)
                                                         {{ $attr->id == $conf_base ? 'selected' : ''}}
                                                     @endforeach
-                                                    @endisset
-                                                >{{$attr->name}}</option>
+                                                    @endisset>{{$attr->name}}
+                                                </option>
                                             @empty
 
                                             @endforelse
@@ -66,12 +66,12 @@
                                         <select name="door[]" class="form-control door" multiple="multiple">
                                             @forelse($allAttributes as $attr)
                                                 <option value="{{$attr->id}}" 
-                                                    @isset($allConfig['door'])
-                                                        @foreach(explode(',', $allConfig->door) as $conf_door)
-                                                            {{$attr->id == $conf_door ? 'selected' : ''}} 
-                                                        @endforeach
-                                                    @endisset
-                                                    >{{$attr->name}}</option>
+                                                    @isset($allConfig->door)
+                                                    @foreach(explode(',', $allConfig->door) as $conf_door)
+                                                        {{$attr->id == $conf_door ? 'selected' : ''}} 
+                                                    @endforeach
+                                                    @endisset>{{$attr->name}}
+                                                </option>
                                             @empty
 
                                             @endforelse
@@ -91,7 +91,8 @@
                                                     @foreach(explode(',', $allConfig->face) as $conf_face)
                                                         {{$attr->id == $conf_face ? ' selected' : ''}}
                                                     @endforeach
-                                                    @endisset>{{$attr->name}}</option>
+                                                    @endisset>{{$attr->name}}
+                                                </option>
                                             @empty
 
                                             @endforelse
@@ -106,13 +107,13 @@
                                         <label for="">Hardware's<span class="text-danger">*</span></label>
                                         <select name="hardware[]" class="form-control hardware" multiple="multiple">
                                             @forelse($allAttributes as $attr)
-                                            <option value="{{$attr->id}}" 
-                                                @isset($allConfig->hardware)
-                                                @foreach(explode(',', $allConfig->hardware) as $conf_hardware)
-                                                {{ $attr->id == $conf_hardware ? 'selected' : ''}}
-                                                @endforeach
-                                                @endisset
-                                                >{{$attr->name}}</option>
+                                                <option value="{{$attr->id}}" 
+                                                    @isset($allConfig->hardware)
+                                                    @foreach(explode(',', $allConfig->hardware) as $conf_hardware)
+                                                        {{ $attr->id == $conf_hardware ? 'selected' : ''}}
+                                                    @endforeach
+                                                    @endisset>{{$attr->name}}
+                                                </option>
                                             @empty
 
                                             @endforelse
