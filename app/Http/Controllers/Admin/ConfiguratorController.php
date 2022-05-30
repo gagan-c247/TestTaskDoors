@@ -14,7 +14,8 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('dashboard.admin.configurator.index');
+        $allConfigurator = Configurator::orderBy('id', 'DESC')->paginate(20);
+        return view('dashboard.admin.configurator.index', compact('allConfigurator'));
     }
 
     /**
@@ -53,7 +54,7 @@ class ConfiguratorController extends Controller{
             'hinge_height' => $request->hinge_height,
         ];
 
-        $attribute = Configurator::create($data);
+        Configurator::create($data);
         session()->flash('success','Configurator Inserted Successfully!');
         return redirect('/admin/configurator');
     }
