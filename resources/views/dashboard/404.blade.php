@@ -18,7 +18,7 @@
                 </svg></span></div>
             <input class="form-control" id="prependedInput" size="16" type="text" placeholder="What are you looking for?"><span class="input-group-append">
               <button class="btn btn-info " type="button">Search</button>
-              <a href="{{url('/home')}}" class="btn btn-info ml-1">Home</a></span>
+              <a href="{{url('/')}}" class="btn btn-info ml-1">Home</a></span>
           </div>
         </div>
       </div>

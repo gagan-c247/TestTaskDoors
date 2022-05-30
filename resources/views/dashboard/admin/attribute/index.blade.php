@@ -87,7 +87,7 @@
                                             <label for="">Attribute Type</label>
                                             {{-- {{$attribute['type'] ?? old('type')}} --}}
                                             <select name="type" class="form-control type">
-                                                <option value="">Select Type</option>
+                                                <option disabled selected>Select Type</option>
                                                 <option value="input" {{ $attribute['type'] == 'input' ? 'selected' : '' }}>Input Box</option>
                                                 <option value="dropdown" {{ $attribute['type'] == 'dropdown' ? 'selected' : '' }}>Dropdown</option>
                                                 <option value="radio" {{ $attribute['type'] == 'radio' ? 'selected' : '' }}>Radio</option>

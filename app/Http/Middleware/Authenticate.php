@@ -26,7 +26,7 @@ class Authenticate extends Middleware
             return route('user.dashboard');
         }
         // return route('login');
-        return route('home');
+        return route('admin.login');
         // return redirect('/home');
 
     }

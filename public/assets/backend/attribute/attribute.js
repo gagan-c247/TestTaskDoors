@@ -164,3 +164,45 @@ $(document).on('click','.submit-button',function() {
     $('#form_attribute_id').submit();
   }
 });
+
+$(document).on('change','.type',function(){
+var row = '';
+row += '<div class="row">';
+row += '<div class="col-md-3">';
+row += '<label for="">Title</label>';
+row += '<input type="text" class="form-control attribute-title" name="titleNew_1">';
+row += '<span class="attribute-title-error text-danger"></span>';
+row += '  </div>';
+row += ' <div class="col-md-3">';
+row += '      <label for="">Price</label>';
+row += '          <div class="input-group">';
+row += '             <div class="input-group-prepend">';
+row += '                <span class="input-group-text" id="basic-addon1">$</span>';
+row += '           </div>';
+row += '        <input type="text" class="form-control attribute-price" name="priceNew_1">';
+row += '      </div>';
+row += '    <span class="attribute-price-error text-danger"></span>';
+row += '  </div>';
+row += ' <div class="col-md-4">';
+row += '     <div class="uploaded-file-section upload__img-wrap">';
+row += '         No File uploaded';
+row += '     </div>';
+row += '    <span class="attribute-image-error text-danger"></span>';
+row += ' </div>';
+row += '<div class="col-md-2 mt-4">';
+row += '   <a href="javascript:;" class="btn btn-primary add" data-toggle="tooltip" title="Add" data-id="1">';
+row += '      <i class="fa fa-plus"></i>';
+row += '  </a>';
+row += ' <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">';
+row += '      <i class="fa fa-upload"></i>';
+row += ' </a>';
+row += '      <input type="file" multiple="" name="fileNew_1[]" data-max_length="20" class="upload__inputfile attribute-image d-none">';
+row += '  </div>';
+row += '</div>';
+  if($(this).val() == 'input'){
+    $('.row-data').html(' ');
+  }else{
+    $('.row-data').html(row);
+  }
+});
+

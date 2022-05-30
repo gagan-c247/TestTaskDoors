@@ -9,7 +9,7 @@
             <h1 class="float-left display-3 mr-4">401</h1>
             <h4 class="pt-3">Unauthorized</h4>
             <p class="text-muted">You are not authenticated to visit that page.</p>
-            <a href="{{url('/home')}}" class="btn btn-info" {{--style="background:#3c4b64 !important;"--}}>Home</a>
+            <a href="{{url('/')}}" class="btn btn-info" {{--style="background:#3c4b64 !important;"--}}>Home</a>
           </div>
           <div class="input-prepend input-group">
             <div class="input-group-prepend"><span class="input-group-text">

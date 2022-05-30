@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="footer-items pr-4">
-					<a class="footer-logo" href="{{ url('/home') }}"> 
+					<a class="footer-logo" href="{{ url('/') }}"> 
 						<img class="logo" style="height:50px; width: 50px;" src="{{ asset('frontend/assets/images/logo-white-1.png') }}">
 					</a>
 					<p class="mt-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>

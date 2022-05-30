@@ -10,7 +10,7 @@
 			<span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
 			</button>
 			@endif
-			<a class="navbar-brand" href="{{ url('/home') }}"> 
+			<a class="navbar-brand" href="{{ url('/') }}"> 
 				<img class="logo" style="height:50px; width: 50px;" src="{{ asset('frontend/assets/images/logo-white-1.png') }}">
 			</a>
 			@if(!auth()->guard('web')->check() && !auth()->guard('admin')->check())
