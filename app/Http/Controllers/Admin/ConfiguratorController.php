@@ -35,23 +35,10 @@ class ConfiguratorController extends Controller{
      */
     public function store(ConfiguratorRequest $request){
         $data = [
-            'series' => $request->series,
-            'product_type' => $request->product_type,
-            'door_opening_type' => $request->door_opening_type,
-            'opening_option' => $request->opening_option,
-            'standerd_size' => $request->standerd_size,
-
-            'ratting' => $request->ratting,
-            'core_material' => $request->core_material,
-            'agency' => $request->agency,
-
-            'face_type' => $request->face_type,
-            'cut' => $request->cut,
-            'grade' => $request->grade,
-
-            'hardware_type' => $request->hardware_type,
-            'sub_category' => $request->sub_category,
-            'hinge_height' => $request->hinge_height,
+            'base_option' => $request->base_option,
+            'door' => $request->door,
+            'face' => $request->face,
+            'hardware' => $request->hardware,
         ];
 
         Configurator::create($data);
