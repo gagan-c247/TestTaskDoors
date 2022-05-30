@@ -4,10 +4,12 @@
             <label for="">Title</label>
             <input type="text" class="form-control attribute-title" name="title_{{$key+1}}" value="{{$detail['title'] ?? ''}}">
             <input type="hidden" name="id_{{$key+1}}" value="{{$detail['id'] ?? ''}}">
+            <span class="attribute-title-error text-danger"></span>
         </div>
         <div class="col-md-3">
             <label for="">Price</label>
-            <input type="text" class="form-control attribute-title" name="price_{{$key+1}}" value="{{$detail['price'] ?? ''}}">
+            <input type="text" class="form-control attribute-price" name="price_{{$key+1}}" value="{{$detail['price'] ?? ''}}">
+            <span class="attribute-title-error text-danger"></span>
         </div>
         <div class="col-md-4">
             <div class="upload__img-wrap">
@@ -40,16 +42,19 @@
     <div class="row">
         <div class="col-md-3">
             <label for="">Title</label>
-            <input type="text" class="form-control attribute-title" name="title_1">
+            <input type="text" class="form-control attribute-title" name="titleNew_1">
+            <span class="attribute-title-error text-danger"></span>
         </div>
         <div class="col-md-3">
             <label for="">Price</label>
-            <input type="text" class="form-control attribute-title" name="price_1">
+            <input type="text" class="form-control attribute-price" name="priceNew_1">
+            <span class="attribute-price-error text-danger"></span>
         </div>
         <div class="col-md-4">
             <div class="uploaded-file-section upload__img-wrap">
                 No File uploaded
             </div>
+            <span class="attribute-image-error text-danger"></span>
         </div>
         <div class="col-md-2 mt-4">
             <a href="javascript:;" class="btn btn-primary add" data-toggle="tooltip" title="Add" data-id="1">
@@ -58,7 +63,7 @@
             <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">
                 <i class="fa fa-upload"></i>
             </a>
-            <input type="file" multiple="" name="file_1[]" data-max_length="20" class="upload__inputfile d-none">
+            <input type="file" multiple="" name="fileNew_1[]" data-max_length="20" class="upload__inputfile d-none">
         </div>
     </div>
 @endforelse

@@ -28,13 +28,8 @@ $(document).on('change','.upload__inputfile', function (e) {
     var iterator = 0;
     imgWrap.html('');
     filesArr.forEach(function (f, index) {
-    console.log(f.type);
-      // if (!f.type.match('image.*')) {
-      //   return;
-      // }
-
       if (imgArray.length > maxLength) {
-        return false
+        return false;
       } else {
         var len = 0;
         for (var i = 0; i < imgArray.length; i++) {
@@ -77,16 +72,16 @@ $(document).on('click','.add',function(){
   row += '<div class="row">';
   row += '      <div class="col-md-3">';
   row += '  <label for="">Title</label>';
-  row += '  <input type="text" class="form-control attribute-title" name="titleNew_'+id+'">';
+  row += '  <input type="text" class="form-control attribute-title" name="titleNew_'+id+'"><span class="attribute-title-error text-danger"></span>';
   row += '</div>';
   row += '<div class="col-md-3">';
   row += '  <label for="">Price</label>';
-  row += '  <input type="text" class="form-control attribute-title" name="priceNew_'+id+'">';
+  row += '  <input type="text" class="form-control attribute-price" name="priceNew_'+id+'"><span class="attribute-price-error text-danger"></span>';
   row += '</div>';
   row += '<div class="col-md-4">';
   row += '  <div class="uploaded-file-section upload__img-wrap">';
   row += '      No File uploaded';
-  row += '   </div>';
+  row += '   </div> <span class="attribute-image-error text-danger"></span>';
   row += '</div>';
   row += '<div class="col-md-2 mt-4">';
   row += '   <a href="javascript:;" class="btn btn-danger remove-row" data-toggle="tooltip" title="Add">';
@@ -95,7 +90,7 @@ $(document).on('click','.add',function(){
   row += '  <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">';
   row += '      <i class="fa fa-upload"></i>';
   row += '  </a>';
-  row += '  <input type="file" multiple="" data-max_length="20" class="upload__inputfile d-none" name="fileNew_'+id+'[]">';
+  row += '  <input type="file" multiple="" data-max_length="20" class="upload__inputfile attribute-image d-none" name="fileNew_'+id+'[]">';
   row += ' </div>';
   row += '</div>';
   $('.row-data').append(row);
@@ -107,8 +102,57 @@ $(document).on('click','.remove-row',function(){
   $('.total_row').val(id);
   var current_id = $(this).attr('data-id');
   if(current_id){
-    $previousData =$('textarea[name="remove-id"]').val() ? $('textarea[name="remove-id"]').val()+',' ? ''; 
+    $previousData =$('textarea[name="remove-id"]').val() ? $('textarea[name="remove-id"]').val()+',' : '' ; 
     $('textarea[name="remove-id"]').val($previousData+current_id);
   }
   $(this).closest('.row').remove();
 })
+
+$(document).on('click','.submit-button',function() {
+  var flag = true;
+  if($('.name').val()){
+    $('.name-error').html('');
+  }else{
+    $('.name-error').html('This field is required');
+    flag = false;
+  }
+
+  if($('.type').val()){
+    $('.type-error').html('');
+  }else{
+    $('.type-error').html('This field is required');
+    flag = false;
+  }
+
+  $('.row-data').find('.row').each(function(index,value){
+      var image = $(this).find('.attribute-image').val();
+      var title = $(this).find('.attribute-title').val();
+      var price = $(this).find('.attribute-price').val();
+      if(title){
+        $(this).closest('.row').find('.attribute-title-error').html('');
+      }else{
+        $(this).closest('.row').find('.attribute-title-error').html('This field is required');
+        flag = false;
+      }
+      if(price){
+        $(this).closest('.row').find('.attribute-price-error').html('');
+      }else{
+        $(this).closest('.row').find('.attribute-price-error').html('This field is required');
+        flag = false;
+      }
+      console.log(price);
+      // if(buttonType == 'save') {
+        if(image || image == undefined ){
+          $(this).closest('.row').find('.attribute-image-error').html('');
+        }else{
+          $(this).closest('.row').find('.attribute-image-error').html('This field is required');
+          flag = false;
+        }
+      // }
+  });
+
+
+  if(flag) {
+    $('#form_attribute_id').submit();
+  }
+});
