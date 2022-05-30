@@ -2,7 +2,7 @@
 
     /* ============================== PUBLIC ROUTE ============================== */
     Route::get('/', function () {
-        return redirect('/login');
+        return redirect('/admin/login');
     });
 
     /* ============================== FRONTEND ROUTE ============================== */
