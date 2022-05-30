@@ -92,7 +92,42 @@ class AttributeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        return ($request['remove-id']);
+        $data['name'] = $request['name'];
+        $data['type'] = $request['type'];
+        $attribute = Attribute::where('id',$id)->update($data);
+        for($i =0; $i < $request['total_row']; $i++) {
+            $table['title'] = $request['title_'.($i+1)] ?? $request['titleNew_'.($i+1)];
+            $table['price'] = $request['price_'.($i+1)] ?? $request['priceNew_'.($i+1)]; 
+            $table['attribute_id'] = $id;
+            $j = 0;
+            $img = [];
+            if($request->has('file_'.($i+1))){
+                foreach($request['file_'.($i+1)] as  $file) {
+                    $name = time() .'type-'.$j.$i. '.' . $file->getClientOriginalExtension();
+                    $destinationPath = public_path('/frontend/attr-img');
+                    $file->move($destinationPath, $name);
+                    $img[$j] =  $name;
+                    $j++;
+                }
+                $table['filename'] = json_encode($img);
+            }elseif( $request->has('fileNew_'.($i+1)) ){
+                foreach($request['fileNew_'.($i+1)] as  $file) {
+                    $name = time() .'type-'.$j.$i. '.' . $file->getClientOriginalExtension();
+                    $destinationPath = public_path('/frontend/attr-img');
+                    $file->move($destinationPath, $name);
+                    $img[$j] =  $name;
+                    $j++;
+                }
+                $table['filename'] = json_encode($img);
+            }
+            if($request->has('title_'.($i+1))) {
+                AttributeDetail::where('id',$request['id_'.($i+1)])->update($table);
+            }elseif( $request->has('titleNew_'.($i+1)) ) {
+                AttributeDetail::create($table);
+            }
+        }
+        return back();
     }
 
     /**

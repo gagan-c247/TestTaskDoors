@@ -77,11 +77,11 @@ $(document).on('click','.add',function(){
   row += '<div class="row">';
   row += '      <div class="col-md-3">';
   row += '  <label for="">Title</label>';
-  row += '  <input type="text" class="form-control attribute-title" name="title_'+id+'">';
+  row += '  <input type="text" class="form-control attribute-title" name="titleNew_'+id+'">';
   row += '</div>';
   row += '<div class="col-md-3">';
   row += '  <label for="">Price</label>';
-  row += '  <input type="text" class="form-control attribute-title" name="price_'+id+'">';
+  row += '  <input type="text" class="form-control attribute-title" name="priceNew_'+id+'">';
   row += '</div>';
   row += '<div class="col-md-4">';
   row += '  <div class="uploaded-file-section upload__img-wrap">';
@@ -89,15 +89,26 @@ $(document).on('click','.add',function(){
   row += '   </div>';
   row += '</div>';
   row += '<div class="col-md-2 mt-4">';
-  row += '   <a href="javascript:;" class="btn btn-danger " data-toggle="tooltip" title="Add">';
+  row += '   <a href="javascript:;" class="btn btn-danger remove-row" data-toggle="tooltip" title="Add">';
   row += '      <i class="fa fa-minus"></i>';
   row += '  </a>';
   row += '  <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">';
   row += '      <i class="fa fa-upload"></i>';
   row += '  </a>';
-  row += '  <input type="file" multiple="" data-max_length="20" class="upload__inputfile d-none" name="file_'+id+'[]">';
+  row += '  <input type="file" multiple="" data-max_length="20" class="upload__inputfile d-none" name="fileNew_'+id+'[]">';
   row += ' </div>';
   row += '</div>';
-
   $('.row-data').append(row);
 });
+
+$(document).on('click','.remove-row',function(){
+  var id = parseInt($('.add').attr('data-id'))-1;
+  $('.add').attr('data-id',id);
+  $('.total_row').val(id);
+  var current_id = $(this).attr('data-id');
+  if(current_id){
+    $previousData =$('textarea[name="remove-id"]').val() ? $('textarea[name="remove-id"]').val()+',' ? ''; 
+    $('textarea[name="remove-id"]').val($previousData+current_id);
+  }
+  $(this).closest('.row').remove();
+})

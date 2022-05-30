@@ -22,11 +22,11 @@
         </div>
         <div class="col-md-2 mt-4">
             @if($loop->first)
-                <a href="javascript:;" class="btn btn-primary add" data-toggle="tooltip" title="Add" data-id="1">
+                <a href="javascript:;" class="btn btn-primary add" data-toggle="tooltip" title="Add" data-id="{{count($attribute['attributeDetails']) ?? '1'}}">
                     <i class="fa fa-plus"></i>
                 </a>
             @else
-                <a href="javascript:;" class="btn btn-danger " data-toggle="tooltip" title="Remove">    
+                <a href="javascript:;" class="btn btn-danger remove-row" data-toggle="tooltip" title="Remove" data-id="{{$detail['id']}}">    
                     <i class="fa fa-minus"></i>
                 </a>
             @endif

@@ -83,7 +83,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Attribute Type</label>
-                                            <input type="text" class="form-control" name="type" value="{{$attribute['type'] ?? old('type')}}">
+                                            {{-- {{$attribute['type'] ?? old('type')}} --}}
+                                            <select name="type" class="form-control">
+                                                <option value="">Select Type</option>
+                                                <option value="input" {{ $attribute['type'] == 'input' ? 'selected' : '' }}>Input Box</option>
+                                                <option value="dropdown" {{ $attribute['type'] == 'dropdown' ? 'selected' : '' }}>Dropdown</option>
+                                                <option value="radio" {{ $attribute['type'] == 'radio' ? 'selected' : '' }}>Radio</option>
+                                                <option value="check" {{ $attribute['type'] == 'check' ? 'selected' : '' }}>Checkbox</option>
+                                            </select>
                                             <input type="hidden" name="total_row" class="total_row" value="{{count($attribute['attributeDetails']) ?? 0}}">
                                         </div>
                                     </div>
@@ -92,7 +99,9 @@
                             <div class="row-data">
                                 @include('dashboard.admin.attribute.attribute-detail')
                             </div>
-
+                            @if($attribute->exists)
+                                <textarea name="remove-id"></textarea>
+                            @endif
                            <div class="mt-3">
                                 <button type="submit" class="btn btn-primary">Save</button>
                            </div>
