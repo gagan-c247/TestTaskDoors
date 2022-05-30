@@ -94,7 +94,6 @@ class AttributeController extends Controller{
         $data['name'] = $request['name'];
         $data['type'] = $request['type'];
         $attribute = Attribute::find($id);
-        $attribute->update($data);
         if($request['remove-id']) {
             $deleteRows =  explode(',',$request['remove-id']);
             AttributeDetail::whereIn('id',$deleteRows)->delete();
@@ -102,6 +101,7 @@ class AttributeController extends Controller{
         if($data['type'] == 'input' || $attribute['type'] != $data['type']) {
             AttributeDetail::where('attribute_id',$id)->delete();
         }
+        $attribute->update($data);
         for($i =0; $i < $request['total_row']; $i++) {
             $table['title'] = $request['title_'.($i+1)] ?? $request['titleNew_'.($i+1)];
             $table['price'] = $request['price_'.($i+1)] ?? $request['priceNew_'.($i+1)]; 
