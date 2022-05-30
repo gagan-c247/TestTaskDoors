@@ -2,9 +2,12 @@
 
     /* ============================== PUBLIC ROUTE ============================== */
     Route::get('/', function () {
-        return redirect('/admin');
+        return redirect('/admin'); 
     });
 
+    Route::get('/product',function() {
+        return view('frontend.product.index');
+    });
     /* ============================== FRONTEND ROUTE ============================== */
     Route::get('/login', function () { return view('auth.login'); });
     Auth::routes();
