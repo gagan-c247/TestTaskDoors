@@ -16,7 +16,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-8 col-5">
-                                <h5 class="title">{{ __('Configurator') }}</h5>
+                                <h5 class="title">{{ __('Configurator Management') }}</h5>
                             </div>
                             <div class="col-md-4 col-7 text-right">
                                 <a href="{{ url('/admin/configurator/create') }}" class="btn addbtn ml-0">Setting</a>

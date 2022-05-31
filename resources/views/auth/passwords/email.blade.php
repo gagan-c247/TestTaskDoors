@@ -5,7 +5,7 @@ body {
     background: #dcdcdc !important;
 }
 </style>
-<section class="login-signup-page signup-sec bgimg" style="background-image: url(../frontend/assets/images/bg1.jpg);">
+<section class="login-signup-page signup-sec bgimg" {{--style="background-image: url(../frontend/assets/images/bg1.jpg);"--}}>
     <div class="container">
         <div class="row">
             <div class="col-md-7 align-self-center m-auto">

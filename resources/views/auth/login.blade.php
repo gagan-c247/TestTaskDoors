@@ -2,16 +2,15 @@
 @section('content')
 
 @if(url()->current() != url('/admin/login'))
-<section class="login-signup-page signup-sec bgimg" style="background-image: url(frontend/assets/images/bg1.jpg);">
+<section class="login-signup-page signup-sec bgimg" {{--style="background-image: url(frontend/assets/images/bg1.jpg);"--}}>
 @else
-<section class="login-signup-page signup-sec bgimg" style="background-image: url(../frontend/assets/images/bg1.jpg);">
+<section class="login-signup-page signup-sec bgimg" {{--style="background-image: url(../frontend/assets/images/bg1.jpg);"--}}>
 @endif
     <div class="container">
         <div class="row">
             <div class="col-md-7 align-self-center m-auto">
                 <div class="login-box">
                     <h1 class="heading-medium text-white text-center">Sign in</h1>
-                    <!-- <p class="text-muted">Sign In to your account</p> -->
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>

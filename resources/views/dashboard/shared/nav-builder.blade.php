@@ -49,6 +49,8 @@
             </li>
         @endcan
     @endcan
+    
+    @if(auth()->guard('admin')->check() && request()->segment(1) == 'admin')
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link {{ request()->is('/admin/attribute') ? 'c-active' : '' }}" href="{{url('/admin/attribute')}}">
             <i class="cil-task c-sidebar-nav-icon"></i> Attribute Management
@@ -59,6 +61,7 @@
             <i class="cil-settings c-sidebar-nav-icon"></i> Configurator Management
         </a>
     </li>
+    @endif
     <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
         <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
     </div>
