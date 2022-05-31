@@ -28,6 +28,11 @@
             </div>
         </div>
         <div class="col-md-2 mt-4">
+            <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">
+                <i class="fa fa-upload"></i>
+            </a>
+            <input type="file" multiple="" name="file_{{$key+1}}[]" data-max_length="20" class="upload__inputfile d-none">
+
             @if($loop->first)
                 <a href="javascript:;" class="btn btn-primary add" data-toggle="tooltip" title="Add" data-id="{{count($attribute['attributeDetails']) ?? '1'}}">
                     <i class="fa fa-plus"></i>
@@ -37,10 +42,6 @@
                     <i class="fa fa-minus"></i>
                 </a>
             @endif
-            <a href="javascript:;" class="btn btn-primary upload-btn" data-toggle="tooltip" title="Upload File">
-                <i class="fa fa-upload"></i>
-            </a>
-            <input type="file" multiple="" name="file_{{$key+1}}[]" data-max_length="20" class="upload__inputfile d-none">
         </div>
     </div>
 @empty 

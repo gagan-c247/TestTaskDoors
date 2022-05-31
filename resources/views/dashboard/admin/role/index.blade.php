@@ -54,19 +54,19 @@
                         </form> --}}
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-striped db-table text-center">
+                        <table class="table table-striped db-table">
                             <thead>
                                 <tr>
-                                    <th width="10%">S.No.</th>
-                                    <th width="25%">Role</th>
-                                    <th width="45%">permission</th>
-                                    <th width="20%">Action</th>
+                                    <th class="text-center">S.No.</th>
+                                    <th>Role</th>
+                                    <th>Permission</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="searchDataTable">
                                 @forelse($roles as $key => $role)
                                     <tr>
-                                        <td> {{ $key+1 }} </td>
+                                        <td class="text-center"> {{ $key+1 }} </td>
                                         <td> {{ $role->name ?? '' }} </td>
                                         <td>
                                             @if( count($role->permissions) > 0)
@@ -90,7 +90,7 @@
                                         <td colspan="12" class="no-product">
                                             <div class="text-center mb-3">
                                                 <img src="{{ asset('images/no-product1.png') }}" alt="icon">
-                                                <h2 class="title-medium">Currently, There are no business owner found.</h2>
+                                                <h2 class="title-medium">No Role Found.</h2>
                                             </div>
                                         </td>
                                     </tr>

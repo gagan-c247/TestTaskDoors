@@ -54,7 +54,7 @@
                         <div class="d-flex justify-content-between">
                             <h5>Attribute Management</h5>
                             @if($attribute->exists)
-                            <a href="{{route('attribute.index')}}" class="btn btn-primary">
+                            <a href="{{route('attribute.index')}}" class="btn addbtn">
                                 Add Attribute 
                             </a>
                             @endif
@@ -103,7 +103,7 @@
                                 <textarea name="remove-id" class="d-none"></textarea>
                             @endif
                            <div class="mt-3">
-                                <button type="button" class="btn btn-primary submit-button" value="{{$attribute->exists ? 'update' : 'save'}}">Save</button>
+                                <button type="button" class="btn addbtn submit-button" value="{{$attribute->exists ? 'update' : 'save'}}">Save</button>
                            </div>
 
                             {{Form::close()}}
@@ -142,20 +142,20 @@
                         </form> --}}
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-striped db-table text-center">
+                        <table class="table table-striped db-table">
                             <thead>
                                 <tr>
-                                    <th>S.No.</th>
-                                    <th class="text-left">Title</th>
-                                    <th>Action</th>
+                                    <th class="text-center">S.No.</th>
+                                    <th>Title</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="searchDataTable">
                                 @forelse($allAttribute as $key =>  $attribute) 
                                     <tr>
-                                        <td>{{$key+1}}</td>
-                                        <td class="text-left">{{$attribute->name ?? ''}}</td>
-                                        <td>
+                                        <td class="text-center">{{$key+1}}.</td>
+                                        <td>{{$attribute->name ?? ''}}</td>
+                                        <td class="text-center">
                                             <a href="{{route('attribute.edit',$attribute->id)}}" class="btn" data-toggle="tooltip" title="Edit {{$attribute['name'] ?? ''}}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
