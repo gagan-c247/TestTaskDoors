@@ -5,8 +5,31 @@
         display: block;
         width: 100%;
     }
+
+    .img-product {
+        height: 100px;
+        width: 150px;   
+    }
+    .cost-div{
+        border: 2px solid #f0f0f0;
+        margin-right: 2px;
+    }
+    .header{
+        background: #9b9b9b5e;
+        padding: 11px 8px;
+    }
 </style>
+@php 
+$cost = 0;
+@endphp
 		<div class="container-fluid">
+            <div class="d-flex justify-content-end header">
+                <div class="p-3 cost-div">
+                   Cost: <span class="">${{$cost}}</span>
+                </div>
+                <button class="btn btm-primary">Continue</button>
+                
+            </div>
             <div class="row">
                 <div class="col-md-3 border-right" style="height:100vh;">
                    <div style="padding:35px;">
@@ -35,33 +58,47 @@
                             <div class="tab-pane fade show active" id="base-option" role="tabpanel" aria-labelledby="home-tab">
                                 <h1>Base Option</h1>
                                 <div class="row">
+                                    @foreach($option['base_option'] as $baseOption)
                                     <div class="col-md-12">
-                                        
+                                        <label for="" class="d-block">{{$baseOption['name'] ?? ''}}</label>
+                                        <div class="form-group">
+                                            @include('frontend.product.input',['option' => $baseOption])
+                                        </div>
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="door" role="tabpanel" aria-labelledby="profile-tab">
                                 <h1>Door</h1>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        
-                                    </div>
+                                    @foreach($option['door'] as $door)
+                                        <div class="col-md-12">
+                                            <label for="" class="d-block">{{$door['name'] ?? ''}}</label>
+                                            @include('frontend.product.input',['option' => $door])
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="face" role="tabpanel" aria-labelledby="contact-tab">
                                 <h1>Face</h1>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        
-                                    </div>
+                                    @foreach($option['face'] as $face)
+                                        <div class="col-md-12">
+                                            <label for="" class="d-block">{{$face['name'] ?? ''}}</label>
+                                            @include('frontend.product.input',['option' => $face])
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="hardeware" role="tabpanel" aria-labelledby="contact-tab">
                                 <h1>Hardware's</h1>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        
-                                    </div>
+                                    @foreach($option['hardware'] as $hardware)
+                                        <div class="col-md-12">
+                                            <label for="" class="d-block">{{$hardware['name'] ?? ''}}</label>
+                                            @include('frontend.product.input',['option' => $hardware])
+                                        </div>
+                                    @endforeach
                                 </div>
 
                             </div>
@@ -71,7 +108,26 @@
           
                
             </div>
+        </div>
 
 @endsection
 @section('javascript')
+<script>
+    $(document).on('click', '.radio-click', function() {
+        var value = $(this).data('value');
+        $('.'+value).closest('.img-container').find('.img').each(function(){
+            $(this).hide();
+        });
+        $('.'+value).closest('.img').show();
+    }); 
+
+    $(document).on('change', '.select-change', function() {
+        var value = $(this).find(':selected').data('value');
+        $('.'+value).closest('.img-container').find('.img').each(function(){
+            $(this).hide();
+        });
+        $('.'+value).closest('.img').show();
+    }); 
+    
+</script>
 @endsection

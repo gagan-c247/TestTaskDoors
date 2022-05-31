@@ -5,9 +5,10 @@ Route::get('/', function () {
     return redirect('/admin'); 
 });
 
-Route::get('/product',function() {
-    return view('frontend.product.index');
-});
+    Route::resource('/product','Frontend\ProductController');
+    /* ============================== FRONTEND ROUTE ============================== */
+    Route::get('/login', function () { return view('auth.login'); });
+    Auth::routes();
 
 /* ============================== FRONTEND ROUTE ============================== */
 Route::get('/login', function () { return view('auth.login'); });
@@ -21,6 +22,7 @@ Route::get('admin/logout','Auth\AdminController@logout')->name('admin.logout');
 /* ============================== USER LOGOUT ROUTE ============================== */
 Route::get('/logout','Auth\UserLogoutController@userLogout')->name('user.logout');
 
+<<<<<<< HEAD
 /* ============================== CHECK ADMIN ROUTE ============================== */
 Route::get('/admin',function(){
     if(Auth::guard('admin')->check()){
@@ -28,6 +30,10 @@ Route::get('/admin',function(){
     }
     return redirect()->route('admin.login');
 });
+=======
+        /* ========== CHANGE PASSWORD ========== */
+        Route::resource('/change-password',  'Admin\ChangePasswordController');
+>>>>>>> 7703475f429566f9667b6759b7b72b4cf909b0dc
 
 /* ========== USER MANAGEMENT ROUTE ========== */
 Route::get('/status/{id}', 'UsersController@status');
