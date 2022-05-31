@@ -18,14 +18,19 @@
         background: #9b9b9b5e;
         padding: 11px 8px;
     }
+
+    .nav-tabs .nav-link{
+        color: #000;
+    }
+    .nav-tabs .nav-link.active {
+        background: #ebe8e8;
+    }
 </style>
-@php 
-$cost = 0;
-@endphp
+
 		<div class="container-fluid">
             <div class="d-flex justify-content-end header">
                 <div class="p-3 cost-div">
-                   Cost: <span class="">${{$cost}}</span>
+                   Cost: <span class="display-amount">$0</span>
                 </div>
                 <button class="btn btm-primary">Continue</button>
                 
@@ -36,74 +41,37 @@ $cost = 0;
                     <h1 class="text-dark">Section</h1>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#base-option" role="tab" aria-controls="nav-home" aria-selected="true">
-                                Base Option
-                            </a>
-                            <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#door" role="tab" aria-controls="nav-profile" aria-selected="false">
-                                Door
-                            </a>
-                            <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#face" role="tab" aria-controls="nav-contact" aria-selected="false">
-                                Face
-                            </a>
-                            <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#hardeware" role="tab" aria-controls="nav-contact" aria-selected="false">
-                                Hardware's
-                            </a>
+                            @foreach($configurator as $conf)
+                                <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="nav-home-tab" data-bs-toggle="tab" href="#{{Str::slug($conf['section'])}}" role="tab" aria-controls="nav-home" aria-selected="true">
+                                   <span class="text-capitalize"> {{$conf['section'] ?? '' }}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </nav>
                    </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="" style="padding:50px;">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="base-option" role="tabpanel" aria-labelledby="home-tab">
-                                <h1>Base Option</h1>
-                                <div class="row">
-                                    @foreach($option['base_option'] as $baseOption)
-                                    <div class="col-md-12">
-                                        <label for="" class="d-block">{{$baseOption['name'] ?? ''}}</label>
-                                        <div class="form-group">
-                                            @include('frontend.product.input',['option' => $baseOption])
-                                        </div>
+                    <form method="post" id="form_product_id">
+                        <div class="" style="padding:50px;">
+                            <div class="tab-content" id="myTabContent">
+                                @foreach($configurator as $conf)
+                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{Str::slug($conf['section'])}}" role="tabpanel" aria-labelledby="home-tab">
+                                    <h1 class="text-capitalize">{{ $conf['section'] }}</h1>
+                                    <div class="row">
+                                        @foreach($conf['attribute_detail'] as $baseOption)
+                                            <div class="col-md-12">
+                                                <label for="" class="d-block">{{$baseOption['name'] ?? ''}}</label>
+                                                <div class="form-group">
+                                                    @include('frontend.product.input',['option' => $baseOption])
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="door" role="tabpanel" aria-labelledby="profile-tab">
-                                <h1>Door</h1>
-                                <div class="row">
-                                    @foreach($option['door'] as $door)
-                                        <div class="col-md-12">
-                                            <label for="" class="d-block">{{$door['name'] ?? ''}}</label>
-                                            @include('frontend.product.input',['option' => $door])
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="face" role="tabpanel" aria-labelledby="contact-tab">
-                                <h1>Face</h1>
-                                <div class="row">
-                                    @foreach($option['face'] as $face)
-                                        <div class="col-md-12">
-                                            <label for="" class="d-block">{{$face['name'] ?? ''}}</label>
-                                            @include('frontend.product.input',['option' => $face])
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="hardeware" role="tabpanel" aria-labelledby="contact-tab">
-                                <h1>Hardware's</h1>
-                                <div class="row">
-                                    @foreach($option['hardware'] as $hardware)
-                                        <div class="col-md-12">
-                                            <label for="" class="d-block">{{$hardware['name'] ?? ''}}</label>
-                                            @include('frontend.product.input',['option' => $hardware])
-                                        </div>
-                                    @endforeach
-                                </div>
-
+                                @endforeach
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
           
                
@@ -129,5 +97,31 @@ $cost = 0;
         $('.'+value).closest('.img').show();
     }); 
     
+</script>
+
+<script>
+    $(document).ready(function(){
+        var total = 0;
+        $.each($('#form_product_id').serializeArray(),function(index,value){
+            if(value.value){
+                if(!isNaN(parseInt(value.value))) {
+                   total += parseInt(value.value)
+                }
+            }
+        })
+        $('.display-amount').text('$'+total);
+    });
+
+    $(document).on('change','form',function() {
+        var total = 0;
+        $.each($('#form_product_id').serializeArray(),function(index,value){
+            if(value.value){
+                if(!isNaN(parseInt(value.value))) {
+                   total += parseInt(value.value)
+                }
+            }
+        })
+        $('.display-amount').text('$'+total);
+    });
 </script>
 @endsection

@@ -15,15 +15,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $configator = Configurator::first();
-        $option = [
-            'base_option' => Attribute::whereIn('id',explode(',',$configator['base_option']))->with('attributeDetails')->get(),
-            'door' => Attribute::whereIn('id',explode(',',$configator['door']))->with('attributeDetails')->get(),
-            'face' => Attribute::whereIn('id',explode(',',$configator['face']))->with('attributeDetails')->get(),
-            'hardware' => Attribute::whereIn('id',explode(',',$configator['hardware']))->with('attributeDetails')->get(),
-        ];
+        $configurator = Configurator::get();
+        foreach($configurator as $key => $conf) {
+            $configurator[$key]['attribute_detail'] = Attribute::whereIn('id',explode(',',$conf['attribute']))->with('attributeDetails')->get();
+        }
         // return $option['base_option'];
-        return view('frontend.product.index',compact('option'));
+        return view('frontend.product.index',compact('configurator'));
     }
 
     /**
