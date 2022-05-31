@@ -34,7 +34,6 @@
 
 	@yield('content')
     {{-- @include('frontend.layouts.footer') --}}
-    @yield('javascript')
 
     <script src="{{ asset('frontend/assets/js/jquery.min.js') }}"></script>
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -47,6 +46,8 @@
     {{-- <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('js/coreui-utils.js') }}"></script> --}}
     <script src="{{ asset('js/tooltips.js') }}"></script>
+    @yield('javascript')
+
     <script>
     // 	$(".profile-menu").click(function(){
 	  //      $(".profile-dropdown").toggleClass("hide");

@@ -5,9 +5,7 @@
         return redirect('/admin'); 
     });
 
-    Route::get('/product',function() {
-        return view('frontend.product.index');
-    });
+    Route::resource('/product','Frontend\ProductController');
     /* ============================== FRONTEND ROUTE ============================== */
     Route::get('/login', function () { return view('auth.login'); });
     Auth::routes();
@@ -42,7 +40,7 @@
         Route::resource('/users','UsersController');
 
         /* ========== CHANGE PASSWORD ========== */
-        Route::resource('/change-password',  'admin\ChangePasswordController');
+        Route::resource('/change-password',  'Admin\ChangePasswordController');
 
         /* =========== Role Permission =============*/
         Route::resource('/role','Admin\RolePermissionController');
