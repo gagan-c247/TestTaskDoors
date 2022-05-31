@@ -14,7 +14,7 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $allConfig = Configurator::first();
+        $allConfig = Configurator::orderBy('id', 'DESC')->paginate(10);
         $allAttributes = Attribute::with('attributeDetails')->get();
         return view('dashboard.admin.configurator.index', compact('allConfig', 'allAttributes'));
     }
@@ -25,9 +25,8 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $allConfig = Configurator::first();
         $allAttributes = Attribute::with('attributeDetails')->get();
-        return view('dashboard.admin.configurator.create', compact('allConfig', 'allAttributes'));
+        return view('dashboard.admin.configurator.create', compact('allAttributes'));
     }
 
     /**
@@ -38,20 +37,11 @@ class ConfiguratorController extends Controller{
      */
     public function store(ConfiguratorRequest $request){
         $data = [
-            'base_option' => implode(',', $request->base_option),
-            'door' => implode(',', $request->door),
-            'face' => implode(',', $request->face),
-            'hardware' => implode(',', $request->hardware),
+            'section' => $request->section,
+            'attribute' => implode(',', $request->attribute),
         ];
-
-        $config = Configurator::first();
-        if($config){
-            $config->update($data);
-            session()->flash('success','Configurator Updated Successfully!');
-        }else{
-            Configurator::create($data);
-            session()->flash('success','Configurator Inserted Successfully!');
-        }
+        Configurator::create($data);
+        session()->flash('success', 'Configurator Inserted Successfully!');
         return redirect('/admin/configurator');
     }
 
@@ -72,7 +62,9 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-
+        $config = Configurator::where('id', $id)->first();
+        $allAttributes = Attribute::with('attributeDetails')->get();
+        return view('dashboard.admin.configurator.edit', compact('config', 'allAttributes'));
     }
 
     /**
@@ -83,7 +75,13 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-
+        $data = [
+            'section' => $request->section,
+            'attribute' => implode(',', $request->attribute),
+        ];
+        Configurator::where('id', $id)->update($data);
+        session()->flash('success', 'Configurator Updated Successfully!');
+        return redirect('/admin/configurator');
     }
 
     /**
@@ -93,6 +91,9 @@ class ConfiguratorController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-
+        $config = Configurator::find($id);
+        $config->delete();
+        session()->flash('success', 'Configurator Deleted Successfully!');
+        return redirect('/admin/configurator');
     }
 }

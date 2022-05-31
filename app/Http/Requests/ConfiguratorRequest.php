@@ -23,10 +23,8 @@ class ConfiguratorRequest extends FormRequest
      */
     public function rules(){
         return [
-            'base_option' => 'required',
-            'door'        => 'required',
-            'face'        => 'required',
-            'hardware'    => 'required',
+            'section'   => 'required',
+            'attribute' => 'required',
         ];
     }
 }

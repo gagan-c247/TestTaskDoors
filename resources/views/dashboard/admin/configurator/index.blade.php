@@ -54,17 +54,20 @@
                                     <th class="text-center">S.No.</th>
                                     <th>Section</th>
                                     <th>Selection of Attributes</th>
+                                    <th class="text-center">Created At</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="searchDataTable">
+                                @forelse($allConfig as $confKey => $confVal)
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td>Base Option</td>
+                                    <td class="text-center">{{ $confKey+1 }}.</td>
+                                    <td>{{ $confVal->section ?? '' }}</td>
                                     <td>
                                         @if(isset($allConfig) && $allConfig != [])
                                         @forelse($allAttributes as $attr)
-                                            @forelse(explode(',', $allConfig->base_option) as $conf_base)
-                                                @if($attr->id == $conf_base)
+                                            @forelse(explode(',', $confVal->attribute) as $confAttr)
+                                                @if($attr->id == $confAttr)
                                                     {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
                                                 @endif
                                             @empty
@@ -77,70 +80,31 @@
                                             {{'NA'}}
                                         @endif
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2</td>
-                                    <td>Door</td>
-                                    <td>
-                                        @if(isset($allConfig) && $allConfig != [])
-                                        @forelse($allAttributes as $attr)
-                                            @forelse(explode(',', $allConfig->door) as $conf_door)
-                                                @if($attr->id == $conf_door)
-                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
-                                                @endif
-                                            @empty
-
-                                            @endforelse
-                                        @empty
-
-                                        @endforelse
-                                        @else
-                                            {{'NA'}}
-                                        @endif
+                                    <td class="text-center">{{ $confVal->created_at->format('Y-m-d') }}</td>
+                                    <td class="action-icon">
+                                        <div class="icon">
+                                            <a href="{{ url('/admin/configurator/' . $confVal->id . '/edit') }}" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
+                                        </div>
+                                        <div class="icon">
+                                            <form action="{{ route('configurator.destroy', $confVal->id ) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <a href="javascript:;" class="delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+                                                <button type="submit" class="deleteSubmit d-none"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td class="text-center">3</td>
-                                    <td>Face</td>
-                                    <td>
-                                        @if(isset($allConfig) && $allConfig != [])
-                                        @forelse($allAttributes as $attr)
-                                            @forelse(explode(',', $allConfig->face) as $conf_face)
-                                                @if($attr->id == $conf_face)
-                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
-                                                @endif
-                                            @empty
-
-                                            @endforelse
-                                        @empty
-
-                                        @endforelse
-                                        @else
-                                            {{'NA'}}
-                                        @endif
+                                    <td colspan="5" class="text-center no-product">
+                                        <div class="text-center mb-3">
+                                            <img src="{{ asset('images/no-product1.png') }}" alt="icon">
+                                            <h2 class="title-medium pb-0">No Configurator Found.</h2>
+                                        </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td>Hardware's</td>
-                                    <td>
-                                        @if(isset($allConfig) && $allConfig != [])
-                                        @forelse($allAttributes as $attr)
-                                            @forelse(explode(',', $allConfig->hardware) as $conf_hardware)
-                                                @if($attr->id == $conf_hardware)
-                                                    {{ $attr->name ?? '' }} ({{ $attr->type ?? '' }})<br>
-                                                @endif
-                                            @empty
-
-                                            @endforelse
-                                        @empty
-
-                                        @endforelse
-                                        @else
-                                            {{'NA'}}
-                                        @endif
-                                    </td>
-                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -152,12 +116,31 @@
 @endsection
 @section('javascript')
 <script type="text/javascript">
-    /* === HIDE SUCCESS AND ERROR MESSAGE === */
+    /* ===== HIDE SUCCESS AND ERROR MESSAGE ===== */
     $( document ).ready(function() {
         setTimeout(function(){
             $('.alert-success').css('display', 'none')
             $('.alert-danger').css('display', 'none')
         }, 4000);
     });
+
+    /* ===== DELETE POPUP ===== */
+    $(document).on('click','.delete',function(){
+        var data = $(this).closest('.icon').find('.deleteSubmit');
+        swal({
+            title: 'Are you sure you want to delete?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0CC27E',
+            cancelButtonColor: '#FF586B',
+            confirmButtonText: 'Yes, Delete!',
+            cancelButtonText: 'No, Cancel!',
+            confirmButtonClass: 'btn-medium yes',
+            cancelButtonClass: 'btn-medium no',
+            buttonsStyling: true
+        }).then(function () {
+            data.trigger('click');
+        });
+    })
 </script>
 @endsection

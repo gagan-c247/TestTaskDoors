@@ -36,13 +36,14 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" id="configurator-form" action="{{route('configurator.store')}}" autocomplete="off" enctype="multipart/form-data">
+                        <form method="POST" id="configurator-form" action="{{ route('configurator.update', [$config->id]) }}" autocomplete="off" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Section<span class="text-danger">*</span></label>
-                                        <input type="text" name="section" value="{{ old('section') }}" class="form-control">
+                                        <input type="text" name="section" value="{{ old('section') ?? $config->section }}" class="form-control">
                                         @error('section')
                                             <span class="text text-danger">{{ $message }}</span>
                                         @enderror
@@ -53,7 +54,12 @@
                                         <label>Attribute<span class="text-danger">*</span></label>
                                         <select name="attribute[]" class="form-control attribute" multiple="multiple">
                                             @forelse($allAttributes as $attr)
-                                                <option value="{{$attr->id}}">{{$attr->name}}
+                                                <option value="{{$attr->id}}" 
+                                                    @isset($config->attribute)
+                                                    @foreach(explode(',', $config->attribute) as $confAttr)
+                                                        {{ $attr->id == $confAttr ? 'selected' : ''}}
+                                                    @endforeach
+                                                    @endisset>{{$attr->name}}
                                                 </option>
                                             @empty
 
@@ -66,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="form-group text-right">
-                                <input type="submit" class="btn addbtn" value="Submit">
+                                <input type="submit" class="btn addbtn" value="Update">
                             </div>
                         </form>
                     </div>
