@@ -5,7 +5,6 @@
         pointer-events: none;
         color: #ccc!important;
     }
-
     .uploaded-file-section{
         padding: 9px 11px;
         text-align: center;
@@ -22,7 +21,6 @@
         height: 75px;
         width: 75px;
     }   
-
     .upload__img-box {
         display: inline-block;
     }
@@ -43,8 +41,7 @@
         content: '\2716';
         font-size: 14px;
         color: white;
-    }
-    
+    } 
 </style>
 <div class="container-fluid">
     <div class="animated fadeIn">
@@ -71,7 +68,7 @@
                                 'files' => true,
                                 'id' => 'form_attribute_id'
                             ])
-                            !!}
+                        !!}
                             @csrf
                             <div class="">
                                 <div class="row">
@@ -166,7 +163,7 @@
                                     </tr>
                                 @empty 
                                     <tr>
-                                        <td>Data Not Found</td>
+                                        <td colspan="5">Data Not Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -178,6 +175,7 @@
     </div>
 </div>
 @endsection
+
 @section('javascript')
 <script src="{{asset('assets/backend/attribute/attribute.js')}}"></script>
 @endsection

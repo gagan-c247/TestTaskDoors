@@ -15,10 +15,8 @@ class CreateConfiguratorsTable extends Migration
     {
         Schema::create('configurators', function (Blueprint $table) {
             $table->id();
-            $table->string('base_option');
-            $table->string('door');
-            $table->string('face');
-            $table->string('hardware');
+            $table->string('section');
+            $table->string('attribute');
             $table->timestamps();
         });
     }
